@@ -16,7 +16,7 @@ Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->group(function () {
         Route::get('dashboard', function () {
-            return Inertia::render('dashboard');
+            return Inertia::render('admin/dashboard');
         })->name('dashboard');
         Route::resource('/categories', CategoryController::class);
         Route::resource('/products', ProductController::class);
