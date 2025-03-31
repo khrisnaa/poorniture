@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->string('address');
+            $table->string('city');
+            $table->string('postal_code');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
