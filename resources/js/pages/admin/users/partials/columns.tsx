@@ -1,14 +1,13 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
-export type OrderColumn = {
+export type UserColumn = {
     id: string;
     email: string;
-    total_price: number;
-    status: string;
+    name: string;
 };
 
-export const columns: ColumnDef<OrderColumn>[] = [
+export const columns: ColumnDef<UserColumn>[] = [
     {
         id: 'index',
         header: '#',
@@ -16,10 +15,6 @@ export const columns: ColumnDef<OrderColumn>[] = [
             const index = table.getSortedRowModel().rows.findIndex((r) => r.id === row.id);
             return (index + 1).toString().padStart(2, '0');
         },
-    },
-    {
-        accessorKey: 'id',
-        header: 'Order ID',
     },
     {
         accessorKey: 'email',
@@ -36,18 +31,14 @@ export const columns: ColumnDef<OrderColumn>[] = [
         },
     },
     {
-        accessorKey: 'total_price',
-        header: 'Total Price',
-    },
-    {
-        accessorKey: 'status',
+        accessorKey: 'name',
         header: ({ column }) => {
             return (
                 <button
                     className="hover:text-primary flex cursor-pointer items-center gap-2"
                     onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                 >
-                    Status
+                    User Name
                     <ArrowUpDown className="h-4 w-4" />
                 </button>
             );

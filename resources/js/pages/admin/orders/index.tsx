@@ -8,8 +8,8 @@ import { DataTable } from './partials/data-table';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Categoriess',
-        href: '/admin/categories',
+        title: 'Orders',
+        href: '/admin/orders',
     },
 ];
 
@@ -24,13 +24,13 @@ export default function Index({ orders }: PageProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title="Orders Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex w-full items-end justify-between">
                     <div className="flex-1">
                         <HeadingLarge
-                            title="Manage Categories"
-                            description="Take full control of your categories organize, track, and manage them effortlessly in one place."
+                            title="Orders Dashboard"
+                            description="Track your orders seamlessly, ensuring smooth organization and effortless control."
                         />
                     </div>
                 </div>
