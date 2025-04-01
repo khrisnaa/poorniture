@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
@@ -12,7 +13,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::with('items.product', 'user')->latest()->paginate(10);
+
+        return Inertia::render('admin/orders/index', compact('orders'));
     }
 
     /**
