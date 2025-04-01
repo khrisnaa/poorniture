@@ -10,7 +10,7 @@ import { DataTable } from './partials/data-table';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Categoriess',
+        title: 'Categories',
         href: '/admin/categories',
     },
 ];
