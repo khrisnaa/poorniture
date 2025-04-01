@@ -11,10 +11,12 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
-Route::middleware(['auth', 'verified'])
+Route::middleware(['auth', 'verified', 'admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
+
+
         Route::get('dashboard', function () {
             return Inertia::render('admin/dashboard');
         })->name('dashboard');
