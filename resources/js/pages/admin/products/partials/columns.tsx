@@ -1,8 +1,10 @@
+import DeleteModal from '@/components/delete-modal';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { router } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { useState } from 'react';
 
 export type ProductColumn = {
     id: string;
@@ -63,6 +65,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
         cell: ({ row }) => {
             const product = row.original;
 
+            const [open, setOpen] = useState(false);
             return (
                 <div className="flex justify-center">
                     <DropdownMenu>
@@ -75,11 +78,21 @@ export const columns: ColumnDef<ProductColumn>[] = [
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={() => router.get(route('admin.products.edit', product.id))}>Edit</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => router.delete(route('admin.products.destroy', product.id))} className="text-red-400">
+                            <DropdownMenuItem className="text-red-400" onClick={() => setOpen(true)}>
                                 Delete
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    <DeleteModal
+                        open={open}
+                        onOpenChange={() => setOpen(!open)}
+                        action={() => {
+                            router.delete(route('admin.products.destroy', product.id));
+                            setOpen(false);
+                        }}
+                        title="Are you sure?"
+                        description="Deleting this item will permanently remove it from the system. This action cannot be undone. Do you wish to proceed?"
+                    />
                 </div>
             );
         },

@@ -144,6 +144,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        DB::transaction(function () use ($product) {
+            $product->delete();
+        });
+
+        return redirect()->back()->with('success', 'Product deleted successfully.');
     }
 }
