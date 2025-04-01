@@ -42,7 +42,7 @@ export default function Index({ products }: PageProps) {
                         />
                     </div>
                     <div className="flex flex-[0.5] justify-end">
-                        <Button onClick={() => router.get(route('admin.categories.create'))}>
+                        <Button onClick={() => router.get(route('admin.products.create'))}>
                             <Plus /> New Product
                         </Button>
                     </div>
