@@ -140,19 +140,23 @@ export default function Edit({ categories, product }: PageProps) {
                                 />
                                 <InputError message={errors.description} />
                             </div>
+                            <div className="flex gap-6">
+                                <div className="flex-1">
+                                    <ThumbnailUpload setData={setData} errors={errors} existingThumbnail={product.thumbnail} />
+                                </div>
+                                <div className="flex-1">
+                                    <ImagesUpload
+                                        setData={setData}
+                                        errors={errors}
+                                        data={data}
+                                        onRemainingImagesChange={handleRemainingImages}
+                                        defaultImages={product.images.map((item) => item.image_url)}
+                                    />
+                                </div>
+                            </div>
 
-                            <ThumbnailUpload setData={setData} errors={errors} existingThumbnail={product.thumbnail} />
-
-                            <ImagesUpload
-                                setData={setData}
-                                errors={errors}
-                                data={data}
-                                onRemainingImagesChange={handleRemainingImages}
-                                defaultImages={product.images.map((item) => item.image_url)}
-                            />
-
-                            <div className="my-6 flex items-center justify-start">
-                                <Button size="lg" type="submit" className="w-full" disabled={processing}>
+                            <div className="my-12 flex items-center justify-center">
+                                <Button size="lg" type="submit" className="w-full max-w-lg py-6" disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                     Save Product
                                 </Button>

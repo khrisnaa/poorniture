@@ -1,3 +1,4 @@
+import HeadingLarge from '@/components/heading-large';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,7 +7,7 @@ import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { CategoryForm } from '@/types/form';
 import { Category } from '@/types/model';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -14,20 +15,19 @@ const breadcrumbs: BreadcrumbItem[] = [
         title: 'Categories',
         href: '/admin/categories',
     },
+    {
+        title: 'Edit',
+        href: '/admin/categories/edit',
+    },
 ];
 
-export default function Edit() {
-    const { category } = usePage().props as { category?: Category };
+interface PageProps {
+    category: Category;
+}
 
-    if (!category) {
-        return (
-            <div>
-                <p>Category not found.</p>
-            </div>
-        );
-    }
+export default function Edit({ category }: PageProps) {
     const { data, setData, put, processing, errors, reset } = useForm<CategoryForm>({
-        name: category.name ?? '',
+        name: category.name,
     });
 
     const submit = (e: React.FormEvent) => {
@@ -40,33 +40,43 @@ export default function Edit() {
     };
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title="New Categories" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <div className="max-w-xl">
-                    <form onSubmit={submit}>
-                        <div className="grid gap-2">
-                            <Label htmlFor="name">Category name</Label>
-                            <Input
-                                id="name"
-                                type="text"
-                                name="name"
-                                autoComplete="off"
-                                value={data.name}
-                                autoFocus
-                                onChange={(e) => setData('name', e.target.value)}
-                                placeholder="Armchair"
-                            />
+                <div className="flex w-full items-end justify-between">
+                    <div className="flex-1">
+                        <HeadingLarge
+                            title="Edit a Category"
+                            description="edit your latest Categories with ease and keep your inventory fresh and updated."
+                        />
+                    </div>
+                </div>
+                <div className="container mx-auto">
+                    <div className="gap-4 rounded-md border p-4">
+                        <form onSubmit={submit} className="mx-auto max-w-lg space-y-6">
+                            <div className="grid gap-2">
+                                <Label htmlFor="name">Name</Label>
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    autoComplete="off"
+                                    value={data.name}
+                                    autoFocus
+                                    onChange={(e) => setData('name', e.target.value)}
+                                    placeholder="Category name"
+                                />
 
-                            <InputError message={errors.name} />
-                        </div>
+                                <InputError message={errors.name} />
+                            </div>
 
-                        <div className="my-6 flex items-center justify-start">
-                            <Button type="submit" className="w-full" disabled={processing}>
-                                {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Save
-                            </Button>
-                        </div>
-                    </form>
+                            <div className="my-12 flex items-center justify-center">
+                                <Button size="lg" type="submit" className="w-full max-w-lg py-6" disabled={processing}>
+                                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                                    Save Category
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </AppLayout>

@@ -149,15 +149,19 @@ export default function Create({ categories }: PageProps) {
                                 />
                                 <InputError message={errors.description} />
                             </div>
+                            <div className="flex gap-6">
+                                <div className="flex-1">
+                                    <ThumbnailUpload setData={setData} errors={errors} />
+                                </div>
+                                <div className="flex-1">
+                                    <ImagesUpload setData={setData} errors={errors} data={data} />
+                                </div>
+                            </div>
 
-                            <ThumbnailUpload setData={setData} errors={errors} />
-
-                            <ImagesUpload setData={setData} errors={errors} data={data} />
-
-                            <div className="my-6 flex items-center justify-start">
-                                <Button size="lg" type="submit" className="w-full" disabled={processing}>
+                            <div className="my-12 flex items-center justify-center">
+                                <Button size="lg" type="submit" className="w-full max-w-lg py-6" disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Save Product
+                                    Create Product
                                 </Button>
                             </div>
                         </form>
