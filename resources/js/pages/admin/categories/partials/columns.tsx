@@ -2,13 +2,12 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { router } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 
 export type CategoryColumn = {
     id: string;
     name: string;
-    created_at: string;
-    updated_at: string;
+    products: number;
 };
 
 export const columns: ColumnDef<CategoryColumn>[] = [
@@ -22,39 +21,56 @@ export const columns: ColumnDef<CategoryColumn>[] = [
     },
     {
         accessorKey: 'name',
-        header: 'Name',
+        header: ({ column }) => {
+            return (
+                <button
+                    className="hover:text-primary flex cursor-pointer items-center gap-2"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                >
+                    Name
+                    <ArrowUpDown className="h-4 w-4" />
+                </button>
+            );
+        },
+    },
+    {
+        accessorKey: 'products',
+        header: ({ column }) => {
+            return (
+                <button
+                    className="hover:text-primary flex cursor-pointer items-center gap-2"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+                >
+                    Products Count
+                    <ArrowUpDown className="h-4 w-4" />
+                </button>
+            );
+        },
     },
 
-    {
-        accessorKey: 'created_at',
-        header: 'Created at',
-    },
-    {
-        accessorKey: 'updated_at',
-        header: 'Updated at',
-    },
     {
         id: 'actions',
         cell: ({ row }) => {
             const category = row.original;
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild className="cursor-pointer">
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => router.get(route('admin.categories.edit', category.id))}>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>View</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => router.delete(route('admin.categories.destroy', category.id))} className="text-red-500">
-                            Delete
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex justify-center">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild className="cursor-pointer">
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => router.get(route('admin.categories.edit', category.id))}>Edit</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={() => router.delete(route('admin.categories.destroy', category.id))} className="text-red-400">
+                                Delete
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             );
         },
     },

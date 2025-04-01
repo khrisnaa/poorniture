@@ -61,7 +61,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
     {
         id: 'actions',
         cell: ({ row }) => {
-            const category = row.original;
+            const product = row.original;
 
             return (
                 <div className="flex justify-center">
@@ -73,9 +73,9 @@ export const columns: ColumnDef<ProductColumn>[] = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => router.get(route('admin.products.edit', category.id))}>Edit</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.get(route('admin.products.edit', product.id))}>Edit</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => router.delete(route('admin.products.destroy', category.id))} className="text-red-400">
+                            <DropdownMenuItem onClick={() => router.delete(route('admin.products.destroy', product.id))} className="text-red-400">
                                 Delete
                             </DropdownMenuItem>
                         </DropdownMenuContent>

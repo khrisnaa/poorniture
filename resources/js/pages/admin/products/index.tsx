@@ -11,7 +11,7 @@ import { DataTable } from './partials/data-table';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Products',
-        href: '/admin/categories',
+        href: '/admin/products',
     },
 ];
 
@@ -20,7 +20,7 @@ interface PageProps {
 }
 
 export default function Index({ products }: PageProps) {
-    const dataTable: ProductColumn[] = products.data.map((item) => ({
+    const data: ProductColumn[] = products.data.map((item) => ({
         ...item,
         price: new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -32,7 +32,7 @@ export default function Index({ products }: PageProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Categories" />
+            <Head title="Manage Products" />
             <div className="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
                 <div className="flex w-full items-end justify-between">
                     <div className="flex-1">
@@ -50,7 +50,7 @@ export default function Index({ products }: PageProps) {
                 <div className="container mx-auto">
                     <DataTable
                         columns={columns}
-                        data={dataTable}
+                        data={data}
                         pagination={{
                             currentPage: products.current_page || 1,
                             lastPage: products.last_page || 1,

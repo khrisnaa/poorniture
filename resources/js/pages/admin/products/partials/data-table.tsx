@@ -43,7 +43,7 @@ export function DataTable<TData, TValue>({ columns, data, pagination }: DataTabl
         <div>
             <div className="flex w-full items-center py-4">
                 <Input
-                    placeholder="Filter products name..."
+                    placeholder="Filter product names..."
                     value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
                     onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
                     className="max-w-sm"
