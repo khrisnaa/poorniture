@@ -7,14 +7,16 @@ import { useState } from 'react';
 type ThumbnailUploadProps = {
     setData: (key: string, value: any) => void;
     errors: { [key: string]: string | undefined };
+    existingThumbnail?: string | null; // URL gambar yang ada (jika ada)
 };
 
-export default function ThumbnailUpload({ setData, errors }: ThumbnailUploadProps) {
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
+export default function ThumbnailUpload({ setData, errors, existingThumbnail }: ThumbnailUploadProps) {
+    const [imagePreview, setImagePreview] = useState<string | null>((existingThumbnail && `/storage/${existingThumbnail}`) || null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
         if (file) {
+            console.log(file);
             setData('thumbnail', file);
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -53,7 +55,8 @@ export default function ThumbnailUpload({ setData, errors }: ThumbnailUploadProp
 
                 {imagePreview && (
                     <div className="relative w-fit">
-                        <img src={imagePreview} alt="Image Preview" className="h-36 w-36 rounded-md border object-cover" />
+                        <img src={imagePreview} alt={imagePreview} className="h-36 w-36 rounded-md border object-cover" />
+
                         <button
                             type="button"
                             onClick={handleRemoveImage}

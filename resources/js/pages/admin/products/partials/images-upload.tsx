@@ -2,56 +2,70 @@ import InputError from '@/components/input-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Upload, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type ImagesUploadProps = {
     setData: (key: string, value: any) => void;
     errors: { [key: string]: string | undefined };
     data: { images: File[] };
+    defaultImages?: string[];
+    onRemainingImagesChange?: (remainingUrls: string[]) => void;
 };
 
-export default function ImagesUpload({ data, setData, errors }: ImagesUploadProps) {
-    const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+export default function ImagesUpload({ data, onRemainingImagesChange, setData, errors, defaultImages }: ImagesUploadProps) {
+    const [remainingDefaultImages, setRemainingDefaultImages] = useState<string[]>([]);
+    const [uploadedImages, setUploadedImages] = useState<File[]>([]);
+    const [removedDefaultImages, setRemovedDefaultImages] = useState<string[]>([]);
+    const prevRemainingRef = useRef<string[]>([]);
+
+    useEffect(() => {
+        if (defaultImages) {
+            setRemainingDefaultImages(defaultImages);
+            prevRemainingRef.current = defaultImages;
+        }
+    }, []); // Empty dependency array
+
+    // Gunakan useEffect dengan comparison untuk menghindari loop
+    useEffect(() => {
+        if (!onRemainingImagesChange || JSON.stringify(prevRemainingRef.current) === JSON.stringify(remainingDefaultImages)) {
+            return;
+        }
+
+        onRemainingImagesChange(remainingDefaultImages);
+        prevRemainingRef.current = remainingDefaultImages;
+    }, [remainingDefaultImages, onRemainingImagesChange]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files) {
             const newFiles = Array.from(files);
-            const updatedFiles = [...(data.images || []), ...newFiles];
+            const updatedFiles = [...uploadedImages, ...newFiles];
+            setUploadedImages(updatedFiles);
             setData('images', updatedFiles);
-
-            // Create new previews
-            const newPreviews: string[] = [];
-            newFiles.forEach((file) => {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    newPreviews.push(reader.result as string);
-                    if (newPreviews.length === newFiles.length) {
-                        setImagePreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
-                    }
-                };
-                reader.readAsDataURL(file);
-            });
         }
     };
 
-    const handleRemoveImage = (index: number) => {
-        const newPreviews = [...imagePreviews];
-        newPreviews.splice(index, 1);
-        setImagePreviews(newPreviews);
+    const handleRemoveImage = (index: number, isDefault: boolean = false) => {
+        if (isDefault) {
+            // Handle default image removal
+            const imageToRemove = remainingDefaultImages[index];
+            setRemovedDefaultImages((prev) => [...prev, imageToRemove]);
 
-        const newFiles = [...(data.images || [])];
-        newFiles.splice(index, 1);
-        setData('images', newFiles);
-
-        if (newFiles.length === 0) {
-            setImagePreviews([]);
-            const fileInput = document.getElementById('images') as HTMLInputElement;
-            if (fileInput) {
-                fileInput.value = '';
-            }
+            const newDefaultImages = remainingDefaultImages.filter((_, i) => i !== index);
+            setRemainingDefaultImages(newDefaultImages);
+            // if (setRemainingImages) {
+            //     setRemainingImages(removedDefaultImages);
+            // }
+        } else {
+            // Handle uploaded image removal
+            const newUploadedImages = uploadedImages.filter((_, i) => i !== index);
+            setUploadedImages(newUploadedImages);
+            setData('images', newUploadedImages);
         }
     };
+
+    // Filter out any default images that have been removed
+    const filteredDefaultImages = remainingDefaultImages.filter((img) => !removedDefaultImages.includes(img));
 
     return (
         <div className="grid gap-2">
@@ -71,15 +85,37 @@ export default function ImagesUpload({ data, setData, errors }: ImagesUploadProp
                         <Upload className="h-4 w-4" /> <span className="text-sm font-semibold">Upload Images</span>
                     </div>
                 </div>
-                {imagePreviews.length > 0 && (
+
+                {/* Display remaining default images */}
+                {(filteredDefaultImages.length > 0 || uploadedImages.length > 0) && (
                     <div className="flex flex-wrap gap-4">
-                        {imagePreviews.map((preview, index) => (
-                            <div key={index} className="relative">
-                                <img src={preview} alt={`Image Preview ${index + 1}`} className="h-36 w-36 rounded-md border object-cover" />
+                        {filteredDefaultImages.map((preview, index) => (
+                            <div key={`default-${index}`} className="relative">
+                                <img
+                                    src={`/storage/${preview}`}
+                                    alt={`Default Image Preview ${index + 1}`}
+                                    className="h-36 w-36 rounded-md border object-cover"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveImage(index, true)}
+                                    className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1 text-white"
+                                >
+                                    <X className="h-4 w-4" />
+                                </button>
+                            </div>
+                        ))}
+                        {uploadedImages.map((file, index) => (
+                            <div key={`uploaded-${index}`} className="relative">
+                                <img
+                                    src={URL.createObjectURL(file)}
+                                    alt={`Uploaded Image Preview ${index + 1}`}
+                                    className="h-36 w-36 rounded-md border object-cover"
+                                />
                                 <button
                                     type="button"
                                     onClick={() => handleRemoveImage(index)}
-                                    className="text-secondary absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1"
+                                    className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1 text-white"
                                 >
                                     <X className="h-4 w-4" />
                                 </button>

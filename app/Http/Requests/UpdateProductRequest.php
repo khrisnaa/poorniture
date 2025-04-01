@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,6 +31,8 @@ class ProductRequest extends FormRequest
 
             'images' => 'nullable|array',
             'images.*' => 'file|mimes:jpeg,png,jpg,gif|max:10240',
+            'default_images' => 'nullable|array',
+            'default_images.*' => 'string',
         ];
     }
 }
