@@ -8,7 +8,9 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
-Route::get('/products', [ClientController::class, 'products'])->name('products');
+Route::get('/products', [ClientController::class, 'products'])->name('products.index');
+Route::get('/products/{product}', [ClientController::class, 'details'])->name('products.show');
+
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/admin.php';

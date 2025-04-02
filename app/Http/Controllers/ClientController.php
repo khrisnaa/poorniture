@@ -51,4 +51,11 @@ class ClientController extends Controller
             ],
         ]);
     }
+
+    public function details(Product $product)
+    {
+        $product->load(['category', 'images']);
+
+        return Inertia::render('products/show', compact('product'));
+    }
 }
