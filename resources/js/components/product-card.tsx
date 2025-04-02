@@ -1,14 +1,22 @@
+import { useViewContext } from '@/context/view-context';
+import { cn } from '@/lib/utils';
 import { Category, Product } from '@/types/model';
-import { Plus } from 'lucide-react';
-import { Button } from './ui/button';
 import { Card, CardContent, CardFooter } from './ui/card';
 
 interface ProductCardProps {
     product: Product & { category: Category };
 }
+
 export default function ProductCard({ product }: ProductCardProps) {
+    const { activeView } = useViewContext();
+
     return (
-        <Card className="cursorpo w-full border-none shadow-none sm:w-[calc(33%_-_16px)] md:w-[calc(33%_-_16px)]">
+        <Card
+            className={cn(
+                'w-full cursor-pointer border-none shadow-none',
+                activeView === 2 ? 'sm:w-[calc(50%_-_16px)]' : 'sm:w-[calc(33.33%_-_16px)]',
+            )}
+        >
             <CardContent className="relative aspect-square max-h-64">
                 <img src="/asset/chair.png" className="h-full w-full object-contain" />
             </CardContent>
@@ -23,10 +31,9 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <h5 className="text-xl font-bold">
                         IDR <span>{new Intl.NumberFormat('id-ID').format(product.price)}</span>
                     </h5>
-
-                    <Button variant="outline" className="size-8 rounded-full bg-none">
+                    {/* <Button variant="outline" className="size-8 rounded-full bg-none">
                         <Plus />
-                    </Button>
+                    </Button> */}
                 </div>
             </CardFooter>
         </Card>
