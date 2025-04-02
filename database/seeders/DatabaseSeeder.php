@@ -24,8 +24,14 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
 
-        Category::factory(5)->create();
-        Product::factory(20)->create();
+
+        // Call CategorySeeder first
+        $this->call(CategorySeeder::class);
+
+        // Call ProductSeeder after CategorySeeder
+        $this->call(ProductSeeder::class);
+
+        // Generate 10 orders after products are seeded
         Order::factory(10)->create();
     }
 }
