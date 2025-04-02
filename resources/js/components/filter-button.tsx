@@ -12,7 +12,7 @@ export default function FilterButton({ children, active, onClick }: FilterButton
             onClick={onClick}
             variant="outline"
             className={cn(
-                'group rounded-full p-6 transition-all duration-500',
+                'group rounded-full px-7 py-6 transition-all duration-500',
                 active ? 'hover:bg-primary hover:text-secondary bg-primary text-secondary' : 'hover:text-secondary hover:bg-primary',
             )}
         >
