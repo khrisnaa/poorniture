@@ -5,7 +5,6 @@ export default function Welcome() {
     return (
         <ClientLayout>
             <Head title="Home" />
-            <div className="max-w-7xl bg-red-400">SUKI SUKI SUKi</div>
         </ClientLayout>
     );
 }
