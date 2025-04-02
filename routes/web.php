@@ -7,6 +7,9 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/products', function () {
+    return Inertia::render('products/index');
+})->name('products');
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/admin.php';

@@ -52,7 +52,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
     return (
         <>
             <div className="border-sidebar-border/80 border-b">
-                <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
+                <div className="mx-auto flex h-16 items-center px-3 md:max-w-7xl">
                     {/* Mobile Menu */}
                     <div className="lg:hidden">
                         <Sheet>
@@ -113,9 +113,11 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                     </div>
 
                     <div className="ml-auto flex items-center space-x-2">
-                        <nav className="relative flex items-center justify-end gap-2">
+                        <nav className="relative flex items-center justify-end gap-4">
                             {auth.user ? (
                                 <>
+                                    <CartButton />
+
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
                                             <Button variant="ghost" className="size-10 rounded-full p-1">
@@ -131,7 +133,6 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                             <UserMenuContent user={auth.user} />
                                         </DropdownMenuContent>
                                     </DropdownMenu>
-                                    <CartButton />
                                 </>
                             ) : (
                                 <>

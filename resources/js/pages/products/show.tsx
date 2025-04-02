@@ -1,11 +1,10 @@
 import ClientLayout from '@/layouts/client-layout';
 import { Head } from '@inertiajs/react';
 
-export default function Welcome() {
+export default function Show() {
     return (
         <ClientLayout>
-            <Head title="Home" />
-            <div className="max-w-7xl bg-red-400">SUKI SUKI SUKi</div>
+            <Head title="Produc Details" />
         </ClientLayout>
     );
 }
