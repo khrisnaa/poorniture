@@ -53,9 +53,6 @@ export default function ImagesUpload({ data, onRemainingImagesChange, setData, e
 
             const newDefaultImages = remainingDefaultImages.filter((_, i) => i !== index);
             setRemainingDefaultImages(newDefaultImages);
-            // if (setRemainingImages) {
-            //     setRemainingImages(removedDefaultImages);
-            // }
         } else {
             // Handle uploaded image removal
             const newUploadedImages = uploadedImages.filter((_, i) => i !== index);
@@ -81,7 +78,7 @@ export default function ImagesUpload({ data, onRemainingImagesChange, setData, e
                         onChange={handleFileChange}
                         className="absolute inset-0 cursor-pointer opacity-0"
                     />
-                    <div className="flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 bg-gray-100 p-4 text-gray-600 hover:bg-gray-200">
+                    <div className="text-muted-foreground border-muted-foreground bg-secondary flex items-center justify-center gap-2 rounded-lg border-2 border-dashed p-4">
                         <Upload className="h-4 w-4" /> <span className="text-sm font-semibold">Upload Images</span>
                     </div>
                 </div>
@@ -99,7 +96,7 @@ export default function ImagesUpload({ data, onRemainingImagesChange, setData, e
                                 <button
                                     type="button"
                                     onClick={() => handleRemoveImage(index, true)}
-                                    className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1 text-white"
+                                    className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1 !text-white"
                                 >
                                     <X className="h-4 w-4" />
                                 </button>
@@ -115,7 +112,7 @@ export default function ImagesUpload({ data, onRemainingImagesChange, setData, e
                                 <button
                                     type="button"
                                     onClick={() => handleRemoveImage(index)}
-                                    className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1 text-white"
+                                    className="text-secondary absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1"
                                 >
                                     <X className="h-4 w-4" />
                                 </button>

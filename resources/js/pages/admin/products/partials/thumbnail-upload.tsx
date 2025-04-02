@@ -7,7 +7,7 @@ import { useState } from 'react';
 type ThumbnailUploadProps = {
     setData: (key: string, value: any) => void;
     errors: { [key: string]: string | undefined };
-    existingThumbnail?: string | null; // URL gambar yang ada (jika ada)
+    existingThumbnail?: string | null;
 };
 
 export default function ThumbnailUpload({ setData, errors, existingThumbnail }: ThumbnailUploadProps) {
@@ -48,7 +48,7 @@ export default function ThumbnailUpload({ setData, errors, existingThumbnail }: 
                         onChange={handleFileChange}
                         className="absolute inset-0 cursor-pointer opacity-0"
                     />
-                    <div className="flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 bg-gray-100 p-4 text-gray-600 hover:bg-gray-200">
+                    <div className="bg-secondary text-muted-foreground border-muted-foreground flex items-center justify-center gap-2 rounded-lg border-2 border-dashed p-4">
                         <Upload className="h-4 w-4" /> <span className="text-sm font-semibold">Upload Thumbnail</span>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ export default function ThumbnailUpload({ setData, errors, existingThumbnail }: 
                         <button
                             type="button"
                             onClick={handleRemoveImage}
-                            className="text-secondary absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1"
+                            className="absolute top-1 right-1 cursor-pointer rounded-full bg-black/30 p-1 text-white"
                         >
                             <X className="h-4 w-4" />
                         </button>

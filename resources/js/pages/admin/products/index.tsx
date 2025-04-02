@@ -33,7 +33,7 @@ export default function Index({ products }: PageProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Manage Products" />
-            <div className="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex w-full items-end justify-between">
                     <div className="flex-1">
                         <HeadingLarge

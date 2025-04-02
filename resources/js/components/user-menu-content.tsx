@@ -22,10 +22,17 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                    <Link className="block w-full" href={route('admin.profile.edit')} as="button" prefetch onClick={cleanup}>
-                        <Settings className="mr-2" />
-                        Settings
-                    </Link>
+                    {user.role === 'admin' ? (
+                        <Link className="block w-full" href={route('admin.profile.edit')} as="button" prefetch onClick={cleanup}>
+                            <Settings className="mr-2" />
+                            Settings
+                        </Link>
+                    ) : (
+                        <Link className="block w-full" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
+                            <Settings className="mr-2" />
+                            Settings
+                        </Link>
+                    )}
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
