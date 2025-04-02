@@ -7,7 +7,7 @@ export default function ViewToggle() {
     return (
         <div className="space-x-4">
             {views.map((item, i) => (
-                <ViewButton onClick={() => setActive(i)} active={i === active} grid={item.view} />
+                <ViewButton onClick={() => setActive} active={i === active} grid={item.view} />
             ))}
         </div>
     );

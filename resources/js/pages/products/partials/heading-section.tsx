@@ -12,6 +12,7 @@ export default function HeadingSection() {
 
     const category = props.filters?.category;
     const categoryTitle = category === 'all' ? 'All Products' : category ? category.charAt(0).toUpperCase() + category.slice(1) : 'All Products';
+
     return (
         <div className="space-y-6">
             <div className="flex flex-col gap-6">
