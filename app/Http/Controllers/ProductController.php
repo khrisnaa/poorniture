@@ -44,12 +44,15 @@ class ProductController extends Controller
         DB::transaction(function () use ($request) {
             $validated = $request->validated();
 
+            //Check if has thumbnail, store new thumbnail
             if ($request->hasFile('thumbnail')) {
                 $thumbnailPath = $request->file('thumbnail')->store('thumbnails/' . date('Y/m/d'), 'public');
                 $validated['thumbnail'] = $thumbnailPath;
             }
 
             $product = Product::create($validated);
+
+            //Check if has images, store images to product images
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $imagePath =  $image->store('product_images/' . Str::slug($validated['name']) . '-' . date('Y/m/d'), 'public');

@@ -19,13 +19,31 @@ export default function Dashboard() {
                 {/* <SectionCards /> */}
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative h-48 overflow-hidden rounded-xl border">
-                        <DashboardCard />
+                        <DashboardCard
+                            title="Total Revenue"
+                            value="IDR 250.000.000"
+                            percentageChange="+12.5%"
+                            description="Revenue is trending up this month!"
+                        />
+                        ;
                     </div>
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative h-48 overflow-hidden rounded-xl border">
-                        <DashboardCard />
+                        <DashboardCard
+                            title="Total User Registrations"
+                            value="5,320 Users"
+                            percentageChange="+8.2%"
+                            description="More users are joining this month!"
+                        />
+                        ;
                     </div>
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative h-48 overflow-hidden rounded-xl border">
-                        <DashboardCard />
+                        <DashboardCard
+                            title="New Products Added"
+                            value="32 Products"
+                            percentageChange="+5.6%"
+                            description="Your catalog is expanding!"
+                        />
+                        ;
                     </div>
                 </div>
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">

@@ -22,7 +22,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
         >
             <CardContent className="relative aspect-square max-h-64">
-                <img src="/asset/chair.png" className="h-full w-full object-contain" />
+                <img src={`/storage/${product.thumbnail}`} className="h-full w-full object-contain" />
             </CardContent>
             <CardFooter className="flex-col items-start gap-6 px-0">
                 <div>
