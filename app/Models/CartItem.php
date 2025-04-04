@@ -13,17 +13,13 @@ class CartItem extends Model
     use HasFactory, SoftDeletes, HasUuids;
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['cart_id', 'user_id', 'product_id', 'quantity', 'price'];
+    protected $fillable = ['cart_id', 'product_id', 'quantity'];
 
     public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
     }
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function product(): BelongsTo
     {

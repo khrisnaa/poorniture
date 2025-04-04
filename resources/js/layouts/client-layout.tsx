@@ -1,3 +1,4 @@
+import { CartProvider } from '@/context/cart-context';
 import { ViewProvider } from '@/context/view-context';
 import AppLayoutTemplate from '@/layouts/app/app-header-layout';
 import { BreadcrumbItem } from '@/types';
@@ -10,8 +11,10 @@ interface AppLayoutProps {
 
 export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
     <ViewProvider>
-        <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
-            <main className="px-3">{children}</main>
-        </AppLayoutTemplate>
+        <CartProvider>
+            <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
+                <main className="px-3">{children}</main>
+            </AppLayoutTemplate>
+        </CartProvider>
     </ViewProvider>
 );

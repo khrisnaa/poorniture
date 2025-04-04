@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -10,6 +11,9 @@ Route::get('/', function () {
 
 Route::get('/products', [ClientController::class, 'products'])->name('products.index');
 Route::get('/products/{product}', [ClientController::class, 'details'])->name('products.show');
+
+Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
+Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
 
 
 require __DIR__ . '/settings.php';
