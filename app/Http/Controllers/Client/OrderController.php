@@ -13,15 +13,7 @@ use Inertia\Inertia;
 
 class OrderController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
 
-        $order = Order::with('items.product')->where('user_id', $user->id)->first();
-
-
-        return Inertia::render('orders/index', compact('order'));
-    }
     public function checkout()
     {
         $user = Auth::user();
@@ -30,17 +22,19 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Unauthorized');
         }
 
-        DB::transaction(function () use ($user) {
-            $cart = $user->cart;
+        $cart = optional($user->cart)->load('items.product');
 
-            if (!$cart || $cart->items->isEmpty()) {
-                throw new \Exception('Cart is empty');
-            }
+        if (!$cart || $cart->items->isEmpty()) {
+            return redirect()->back()->with('error', 'Cart is empty');
+        }
 
+        $order = null;
+
+        DB::transaction(function () use ($user, $cart, &$order) {
             $total = 0;
 
             $order = $user->orders()->create([
-                'total_price' => 0, // sementara
+                'total_price' => 0, // akan diupdate setelah perhitungan
                 'status' => 'pending',
             ]);
 
@@ -51,7 +45,6 @@ class OrderController extends Controller
                     'product_id' => $item->product_id,
                     'quantity' => $item->quantity,
                     'subtotal' => $subtotal,
-
                 ]);
 
                 $total += $subtotal;
@@ -59,12 +52,37 @@ class OrderController extends Controller
 
             $order->update(['total_price' => $total]);
 
-
             $cart->items()->delete();
             $cart->delete();
         });
 
-        return redirect()->route('order.index')->with('success', 'Checkout successful');
+        return redirect()->route('order.detail', $order)->with('success', 'Checkout successful');
     }
-    public function history() {}
+
+
+    public function detail(Order $order)
+    {
+        $user = Auth::user();
+
+        if ($order->user_id !== $user->id) {
+            abort(403, 'Unauthorized access to this order.');
+        }
+
+        $order->load('items.product');
+
+        return Inertia::render('orders/detail', compact('order'));
+    }
+
+
+
+    public function index()
+    {
+        $user = Auth::user();
+
+        $orders = Order::with('items.product')
+            ->where('user_id', $user->id)
+            ->get();
+
+        return Inertia::render('orders/index', compact('orders'));
+    }
 }

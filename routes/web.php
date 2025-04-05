@@ -18,9 +18,9 @@ Route::get('/cart/count', [CartController::class, 'count'])->name('cart.count');
 Route::get('/cart/all', [CartController::class, 'all'])->name('cart.all');
 Route::post('/cart/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
 
-Route::get('/order', [OrderController::class, 'index'])->name('order.index');
-Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
-Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+Route::get('/orders/{order}', [OrderController::class, 'detail'])->name('order.detail');
+Route::post('/orders/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/admin.php';

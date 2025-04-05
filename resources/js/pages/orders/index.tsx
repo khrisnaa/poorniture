@@ -3,21 +3,29 @@ import { Order, OrderItem, Product } from '@/types/model';
 import { Head } from '@inertiajs/react';
 
 interface PageProps {
-    order: Order & { items: (OrderItem & { product: Product })[] };
+    orders: (Order & {
+        items: (OrderItem & {
+            product: Product;
+        })[];
+    })[];
 }
-export default function Index({ order }: PageProps) {
+
+export default function Index({ orders }: PageProps) {
     return (
         <ClientLayout>
             <Head title="Home" />
-            <p>Order</p>
-            {order.items.map((item, i) => (
-                <div className="flex gap-4">
-                    <p>{item.product.name}</p>
-                    <p>{item.quantity}</p>
-                    <p>{item.quantity * item.product.price}</p>
+            <p>Orders</p>
+            {orders.map((order, i) => (
+                <div className="border-primary my-8 border py-8">
+                    {order.items.map((item, i) => (
+                        <div className="flex">
+                            <p>{item.product.name}</p>
+                            <p>{item.quantity}</p>
+                            <p>{item.subtotal}</p>
+                        </div>
+                    ))}
                 </div>
             ))}
-            <p>{order.total_price}</p>
         </ClientLayout>
     );
 }
