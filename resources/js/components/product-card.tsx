@@ -1,3 +1,4 @@
+import { useCart } from '@/context/cart-context';
 import { useViewContext } from '@/context/view-context';
 import { cn } from '@/lib/utils';
 import { Category, Product } from '@/types/model';
@@ -13,23 +14,26 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
     const { activeView } = useViewContext();
 
+    const { refreshQuantity } = useCart();
+
     const handleAddCart = () => {
-        router.post(
-            route('cart.store'),
-            {
+        window.axios
+            .post(route('cart.store'), {
                 product_id: product.id,
                 quantity: 1,
-            },
-            {
-                preserveScroll: true,
-            },
-        );
+            })
+            .then(() => {
+                refreshQuantity();
+            })
+            .catch((error) => {
+                console.error('Gagal menambahkan ke cart:', error);
+            });
     };
 
     return (
         <Card className={cn('w-full border-none shadow-none', activeView === 2 ? 'sm:w-[calc(50%_-_16px)]' : 'sm:w-[calc(33.33%_-_16px)]')}>
             <CardContent onClick={() => router.get(route('products.show', product.id))} className="relative aspect-square max-h-64 cursor-pointer">
-                <img src={`/storage/${product.thumbnail}`} className="h-full w-full object-contain" />
+                <img src={product.thumbnail ? `/storage/${product.thumbnail}` : '/asset/chair.png'} className="h-full w-full object-contain" />
             </CardContent>
             <CardFooter className="flex-col items-start gap-6 px-0">
                 <div>

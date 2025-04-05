@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 interface CartContextType {
@@ -18,10 +17,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
     const refreshQuantity = async () => {
         try {
-            const res = await axios.get('/cart/count');
-            setQuantity(res.data.count);
+            const res = await window.axios.get('/cart/all');
+            const items = res.data.items || [];
+
+            const total = items.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0);
+
+            setQuantity(total);
         } catch (error) {
-            console.error('Failed to fetch cart count', error);
+            console.error('Failed to fetch cart items', error);
         }
     };
 

@@ -13,7 +13,7 @@ class OrderItem extends Model
     use HasFactory, SoftDeletes, HasUuids;
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['order_id', 'product_id', 'quantity', 'price'];
+    protected $fillable = ['order_id', 'product_id', 'quantity', 'subtotal'];
 
     public function order(): BelongsTo
     {

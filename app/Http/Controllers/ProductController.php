@@ -110,10 +110,6 @@ class ProductController extends Controller
                 $validated['thumbnail'] = $product->thumbnail;
             }
 
-
-
-
-
             $product->update($validated);
 
             if ($request->has('default_images')) {

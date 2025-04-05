@@ -47,7 +47,7 @@ export interface OrderItem {
     order_id: string;
     product_id: string;
     quantity: number;
-    price: number;
+    subtotal: number;
     created_at: string;
     updated_at: string;
 }
@@ -72,10 +72,8 @@ export interface Cart {
 export interface CartItem {
     id: string;
     cart_id: string;
-    user_id: string;
     product_id: string;
     quantity: number;
-    price: number;
     created_at: string;
     updated_at: string;
 }
