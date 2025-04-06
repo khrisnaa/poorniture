@@ -34,14 +34,14 @@ class ProductController extends Controller
             ->latest()
             ->get();
 
-        return Inertia::render('products/index', compact('products', 'categories', 'priceRanges', 'filters'));
+        return Inertia::render('customer/products/index', compact('products', 'categories', 'priceRanges', 'filters'));
     }
 
     public function productDetails(Product $product)
     {
         $product->load(['category', 'images']);
 
-        return Inertia::render('products/details', compact('product'));
+        return Inertia::render('customer/products/details', compact('product'));
     }
 
     private function priceRanges(): array

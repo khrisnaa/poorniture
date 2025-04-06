@@ -31,7 +31,7 @@ class OrderController extends Controller
             ->latest()
             ->get();
 
-        return Inertia::render('orders/index', compact('orders'));
+        return Inertia::render('customer/orders/index', compact('orders'));
     }
 
     /**
@@ -95,7 +95,7 @@ class OrderController extends Controller
 
         $order->load('items.product');
 
-        return Inertia::render('orders/detail', compact('order'));
+        return Inertia::render('customer/orders/detail', compact('order'));
     }
 
     /**
@@ -124,7 +124,7 @@ class OrderController extends Controller
                 ->with('error', 'Payment gateway error: ' . $e->getMessage());
         }
 
-        return Inertia::render('orders/payment', [
+        return Inertia::render('customer/orders/payment', [
             'order' => $order,
             'clientKey' => config('services.midtrans.client_key'),
         ]);
