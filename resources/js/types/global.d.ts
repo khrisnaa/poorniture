@@ -4,5 +4,6 @@ declare global {
     const route: typeof routeFn;
     interface Window {
         axios: typeof import('axios').default;
+        snap: any;
     }
 }

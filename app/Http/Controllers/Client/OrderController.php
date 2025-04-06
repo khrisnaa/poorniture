@@ -56,7 +56,7 @@ class OrderController extends Controller
             $cart->delete();
         });
 
-        return redirect()->route('order.detail', $order)->with('success', 'Checkout successful');
+        return redirect()->route('order.payment', $order)->with('success', 'Checkout successful');
     }
 
 

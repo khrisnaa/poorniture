@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->decimal('total_price', 10, 2);
             $table->enum('status', ['pending', 'completed', 'canceled'])->default('pending');
+            $table->string('snap_token')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

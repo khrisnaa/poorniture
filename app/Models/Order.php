@@ -14,7 +14,7 @@ class Order extends Model
     use HasFactory, SoftDeletes, HasUuids;
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['user_id', 'total_price', 'status'];
+    protected $fillable = ['user_id', 'total_price', 'status', 'snap_token'];
 
     public function user(): BelongsTo
     {
