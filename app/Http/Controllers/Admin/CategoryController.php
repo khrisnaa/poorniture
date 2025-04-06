@@ -76,6 +76,6 @@ class CategoryController extends Controller
         $category->delete();
 
         // Using modal use redirect back
-        return redirect()->back()->with('success', 'Product deleted successfully.');
+        return response()->json(['message' => 'Category deleted successfully.']);
     }
 }
