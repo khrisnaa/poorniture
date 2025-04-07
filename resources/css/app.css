@@ -10,7 +10,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-sans: 'Inter', sans-serif;
+    --font-sans: 'Montserrat', sans-serif;
+    --font-inter: 'Inter', sans-serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);

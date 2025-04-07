@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, Menu } from 'lucide-react';
-import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
 import CartButton from './cart-button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -39,7 +38,7 @@ const rightNavItems: NavItem[] = [
     },
 ];
 
-const activeItemStyles = 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
+const activeItemStyles = 'text-neutral-900 font-semibold dark:bg-neutral-800 dark:text-neutral-100';
 
 interface AppHeaderProps {
     breadcrumbs?: BreadcrumbItem[];
@@ -52,7 +51,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
     return (
         <>
             <div className="border-sidebar-border/80 border-b">
-                <div className="mx-auto flex h-16 items-center px-3 md:max-w-7xl">
+                <div className="relative mx-auto flex h-16 items-center px-3 md:max-w-7xl">
                     {/* Mobile Menu */}
                     <div className="lg:hidden">
                         <Sheet>
@@ -64,13 +63,22 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             <SheetContent side="left" className="bg-sidebar flex h-full w-64 flex-col items-stretch justify-between">
                                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
-                                    <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
+                                    <div className="flex items-center gap-1">
+                                        <AppLogoIcon className="fill-primary h-6 w-6 text-black dark:text-white" />
+                                        <Link href="/" className="text-primary font-montserrat text-sm font-medium tracking-normal uppercase">
+                                            Poorniture
+                                        </Link>
+                                    </div>
                                 </SheetHeader>
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
                                         <div className="flex flex-col space-y-4">
                                             {mainNavItems.map((item) => (
-                                                <Link key={item.title} href={item.href} className="flex items-center space-x-2 font-medium">
+                                                <Link
+                                                    key={item.title}
+                                                    href={item.href}
+                                                    className="flex items-center space-x-2 text-xs font-medium uppercase"
+                                                >
                                                     {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
                                                     <span>{item.title}</span>
                                                 </Link>
@@ -82,9 +90,9 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         </Sheet>
                     </div>
 
-                    <Link href="/admin/dashboard" prefetch className="flex items-center space-x-2">
+                    {/* <Link href="/" prefetch className="flex items-center space-x-2">
                         <AppLogo />
-                    </Link>
+                    </Link> */}
 
                     {/* Desktop Navigation */}
                     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
@@ -95,6 +103,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         <Link
                                             href={item.href}
                                             className={cn(
+                                                'font-mont font-normal uppercase',
                                                 navigationMenuTriggerStyle(),
                                                 page.url === item.href && activeItemStyles,
                                                 'h-9 cursor-pointer px-3',
@@ -110,6 +119,12 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 ))}
                             </NavigationMenuList>
                         </NavigationMenu>
+                    </div>
+
+                    <div className="absolute top-1/2 left-16 -translate-y-1/2 transform sm:left-1/2 sm:-translate-x-1/2">
+                        <Link href="/" className="text-primary font-montserrat text-sm font-medium tracking-normal uppercase sm:text-base">
+                            Poorniture
+                        </Link>
                     </div>
 
                     <div className="ml-auto flex items-center space-x-2">
@@ -138,13 +153,13 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 <>
                                     <Link
                                         href={route('login')}
-                                        className="inline-block rounded-sm border border-transparent px-3 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] md:px-5 dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
+                                        className="inline-block rounded-sm border border-transparent px-3 py-1.5 text-xs leading-normal font-medium text-[#1b1b18] hover:border-[#19140035] md:px-5 dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                                     >
                                         Log in
                                     </Link>
                                     <Link
                                         href={route('register')}
-                                        className="rounded-sm border border-[#19140035] px-3 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] md:inline-block md:px-5 dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+                                        className="rounded-sm border border-[#19140035] px-3 py-1.5 text-xs leading-normal font-medium text-[#1b1b18] hover:border-[#1915014a] md:inline-block md:px-5 dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                                     >
                                         Register
                                     </Link>

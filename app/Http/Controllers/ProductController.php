@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\StoreProductRequest as AdminStoreProductRequest;
+use App\Http\Requests\Admin\UpdateProductRequest as AdminUpdateProductRequest;
 use Inertia\Inertia;
 use App\Models\Product;
 use App\Models\Category;
@@ -39,7 +41,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request)
+    public function store(AdminStoreProductRequest $request)
     {
         DB::transaction(function () use ($request) {
             $validated = $request->validated();
@@ -90,7 +92,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(AdminUpdateProductRequest $request, Product $product)
     {
         // dd($request->all());
 
