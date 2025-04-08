@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('customer/home/index');
 })->name('home');
 
 Route::prefix('products')->name('products.')->group(function () {
