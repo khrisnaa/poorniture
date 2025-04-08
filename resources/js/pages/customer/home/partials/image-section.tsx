@@ -17,12 +17,21 @@ export default function ImageSection() {
             style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
         >
             <div className="absolute top-[10dvh] left-[2dvw] z-50">
-                <AppLogoIcon className="text-secondary size-14" />
-                <h4 className="text-secondary -translate-y-4 px-2 text-lg font-bold tracking-normal">Poorniture.</h4>
+                <h4 className="text-secondary text-xl font-bold">Poorniture</h4>
+                <h4 className="text-secondary -translate-y-2 text-xl font-bold">Collection.</h4>
             </div>
             <div className="absolute right-[2dvw] bottom-[10dvh] z-50">
                 <h4 className="text-secondary max-w-xl text-end text-7xl font-bold tracking-normal">Designing Spaces, Defining Comfort.</h4>
             </div>
+
+            <div className="absolute z-50">
+                <AppLogoIcon className="text-secondary/30 size-64" />
+            </div>
+            {/* <div className="absolute bottom-0 left-0 z-50">
+                <div className="size-96">
+                    <img src="/asset/black_chair.png" className="h-full w-full object-contain" />
+                </div>
+            </div> */}
 
             <div className="fixed top-[-10vh] left-0 h-[120vh] w-full">
                 <motion.div style={{ y, scale }} className="relative h-full w-full">

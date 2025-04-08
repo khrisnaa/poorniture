@@ -18,12 +18,12 @@ export default function HeroSection() {
                 </Badge>
                 <div className="flex w-fit flex-1 flex-col">
                     <h2 className="text-[9rem] leading-none font-bold">Poorniture</h2>
-                    <h2 className="text-[9rem] leading-none font-bold">Store</h2>
+                    <h2 className="text-[9rem] leading-none font-bold">Collection.</h2>
                 </div>
             </div>
 
             {/* Circle Button */}
-            <div className="absolute bottom-[10dvh] left-1/2 z-10 -translate-x-1/2">
+            <div className="absolute -right-[3dvw] bottom-[10dvh] z-10">
                 <ScrollButton />
             </div>
 
