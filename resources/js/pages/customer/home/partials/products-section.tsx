@@ -5,14 +5,14 @@ import { ArrowRight, Plus } from 'lucide-react';
 
 export default function ProductsSection() {
     return (
-        <div className="space-y-16 py-16">
+        <div className="min-h-screen space-y-16 py-16">
             <div className="flex items-end justify-between">
                 <h2 className="max-w-md text-8xl font-bold">Our Products.</h2>
                 <p className="font-inter max-w-64 py-4 text-sm">
                     A wide variaty of quality product categories are ready to spoil your eyes, choose and order now!
                 </p>
             </div>
-            <div className="flex min-h-screen">
+            <div className="flex">
                 <div className="w-full max-w-1/3">
                     <div className="flex max-w-72 flex-col gap-4 py-8">
                         <FilterButton active text="Seating" />
@@ -24,9 +24,6 @@ export default function ProductsSection() {
                 </div>
                 <div className="w-full max-w-2/3">
                     <div className="flex flex-wrap gap-4">
-                        <FilteredProduct />
-                        <FilteredProduct />
-                        <FilteredProduct />
                         <FilteredProduct />
                         <FilteredProduct />
                         <FilteredProduct />
