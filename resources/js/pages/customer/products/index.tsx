@@ -1,3 +1,10 @@
+import ClientLayout from '@/layouts/client-layout';
+import { Head } from '@inertiajs/react';
+
 export default function Index() {
-    return <div>Index</div>;
+    return (
+        <ClientLayout>
+            <Head title="Products" />
+        </ClientLayout>
+    );
 }
