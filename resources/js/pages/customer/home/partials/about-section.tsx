@@ -18,10 +18,10 @@ export default function AboutSection() {
                 <h4 className="max-w-[40rem] text-8xl font-bold">
                     Quality is our <span className="text-secondary">guiding</span> prin<span className="text-secondary">ciple.</span>
                 </h4>
-                <div className="bg-primary absolute top-[5dvh] -left-[16dvw] h-[50dvh] w-4" />
+                <div className="bg-primary absolute top-[5dvh] -left-[16dvw] h-[50dvh] w-3" />
             </div>
             <div className="absolute -right-[10dvw] bottom-[10dvh] aspect-video w-[60dvw]">
-                <img src="/asset/sofa_living_room.jpg" className="h-full w-full object-cover" />
+                <img src="/asset/sofa_living_room.png" className="h-full w-full object-cover" />
                 <div className="absolute right-[2dvw] bottom-[5dvh] z-50">
                     <h4 className="text-secondary text-xl font-bold">Poorniture</h4>
                     <h4 className="text-secondary -translate-y-2 text-xl font-bold">Collection.</h4>
