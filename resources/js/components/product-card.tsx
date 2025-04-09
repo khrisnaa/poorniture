@@ -33,11 +33,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     return (
         <Card className={cn('w-full border-none shadow-none', activeView === 2 ? 'sm:w-[calc(50%_-_16px)]' : 'sm:w-[calc(33.33%_-_16px)]')}>
             <CardContent onClick={() => router.get(route('products.show', product.id))} className="relative aspect-square max-h-64 cursor-pointer">
-                <img src={product.thumbnail ? `/storage/${product.thumbnail}` : '/asset/chair.png'} className="h-full w-full object-contain" />
+                <img src={product.thumbnail ? `/storage/${product.thumbnail}` : '/asset/black_chair.webp'} className="h-full w-full object-contain" />
             </CardContent>
             <CardFooter className="flex-col items-start gap-6 px-0">
                 <div>
-                    <h4 className="text-2xl font-bold">{product.name}</h4>
+                    <p className="text-2xl font-bold">{product.name}</p>
                     <p className="text-muted-foreground text-sm">
                         {product.category.name.charAt(0).toUpperCase() + product.category.name.slice(1).toLowerCase()}
                     </p>

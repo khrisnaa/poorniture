@@ -25,7 +25,7 @@ export default function HeadingSection() {
             </div>
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 text-sm">
-                    <h4 className="text-muted-foreground">View</h4>
+                    <p className="text-muted-foreground">View</p>
                     <ViewToggle />
                 </div>
                 <p className="text-muted-foreground max-w-sm text-sm">

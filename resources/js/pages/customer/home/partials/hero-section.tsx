@@ -17,7 +17,7 @@ export default function HeroSection() {
                     Reliable Carpenter
                 </Badge>
                 <div className="flex w-fit flex-1 flex-col">
-                    <h2 className="text-[9rem] leading-none font-bold">Poorniture</h2>
+                    <h1 className="text-[9rem] leading-none font-bold">Poorniture</h1>
                     <h2 className="text-[9rem] leading-none font-bold">Collection.</h2>
                 </div>
             </div>
@@ -41,13 +41,13 @@ export default function HeroSection() {
                 <div className="relative size-[40dvw]">
                     <div className="absolute top-[10dvh] -left-[5dvw] flex items-center gap-4">
                         <div className="bg-primary text-secondary p-3">
-                            <h4 className="text-sm">Matte Black Chair</h4>
+                            <h3 className="text-sm">Matte Black Chair</h3>
                         </div>
 
                         <div className="bg-primary h-0.5 w-16" />
                     </div>
 
-                    <img src="/asset/hero_chair.png" alt="Hero Image" className="h-full w-full object-contain" />
+                    <img src="/asset/hero_chair.webp" alt="Hero Image" className="h-full w-full object-contain" />
                 </div>
             </div>
         </div>

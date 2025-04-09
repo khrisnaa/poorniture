@@ -27,7 +27,7 @@ export default function Detail({ product }: PageProps) {
                     <div className="flex w-full flex-col justify-center gap-6">
                         <div className="space-y-2">
                             <h2 className="text-5xl font-bold">{product.name}</h2>
-                            <h4 className="text-muted-foreground capitalize">{product.category.name}</h4>
+                            <p className="text-muted-foreground capitalize">{product.category.name}</p>
                         </div>
                         <p>{product.description}</p>
                         <h3 className="text-3xl font-bold">

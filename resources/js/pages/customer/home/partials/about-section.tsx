@@ -15,16 +15,17 @@ export default function AboutSection() {
                 </Link>
             </div>
             <div className="relative z-50 w-full -translate-x-[5dvw] translate-y-[5dvh]">
-                <h4 className="max-w-[40rem] text-8xl font-bold">
-                    Quality is our <span className="text-secondary">guiding</span> prin<span className="text-secondary">ciple.</span>
-                </h4>
+                <h1 className="max-w-[40rem] text-8xl font-bold">
+                    Quality is our <span className="text-white">guiding</span> prin<span className="text-white">ciple.</span>
+                </h1>
                 <div className="bg-primary absolute top-[5dvh] -left-[16dvw] h-[50dvh] w-3" />
             </div>
-            <div className="absolute -right-[10dvw] bottom-[10dvh] aspect-video w-[60dvw]">
-                <img src="/asset/sofa_living_room.png" className="h-full w-full object-cover" />
+
+            <div className="absolute -right-[calc((100dvw-100%-16px)/2)] bottom-[10dvh] aspect-video w-[60dvw]">
+                <img alt="Image" src="/asset/sofa_right.webp" className="h-full w-full object-cover" />
                 <div className="absolute right-[2dvw] bottom-[5dvh] z-50">
-                    <h4 className="text-secondary text-xl font-bold">Poorniture</h4>
-                    <h4 className="text-secondary -translate-y-2 text-xl font-bold">Collection.</h4>
+                    <p className="text-secondary text-xl font-bold">Poorniture</p>
+                    <p className="text-secondary -translate-y-2 text-xl font-bold">Collection.</p>
                 </div>
             </div>
         </div>

@@ -53,15 +53,15 @@ const FilteredProduct = () => {
     return (
         <Card className="w-[calc(33%-16px)] border-none shadow-none">
             <CardContent className="aspect-square">
-                <img src="/asset/black_chair.png" className="h-full w-full object-cover" />
+                <img alt="Product Image" src="/asset/black_chair.webp" className="h-full w-full object-cover" />
             </CardContent>
             <CardFooter className="flex flex-col items-start gap-4">
                 <div>
-                    <h2 className="text-3xl font-bold">Morizine</h2>
+                    <p className="text-3xl font-bold">Morizine</p>
                     <p className="text-muted-foreground text-sm">Chair with beautfiul black skins.</p>
                 </div>
                 <div className="flex w-full items-center justify-between">
-                    <h4 className="text-2xl font-semibold">$110</h4>
+                    <p className="text-2xl font-semibold">$110</p>
                     <Button variant="outline" className="size-10 rounded-full">
                         <Plus />
                     </Button>
