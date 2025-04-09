@@ -8,7 +8,7 @@ interface ViewButtonProps {
 }
 export default function ViewButton({ grid, active, onClick }: ViewButtonProps) {
     return (
-        <Button onClick={onClick} variant={active ? 'outline' : 'secondary'} className="border-primary gap-1 px-2 py-1">
+        <Button onClick={onClick} variant={active ? 'outline' : 'secondary'} className="border-primary h-fit gap-0.5 p-[6px]">
             {Array.from({ length: grid }).map((_) => (
                 <span className={cn('h-4 w-3 rounded-xs', active ? 'bg-primary' : 'bg-neutral-400')}></span>
             ))}

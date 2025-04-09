@@ -35,9 +35,7 @@ export default function HeroSection() {
                 <div className="absolute top-[28dvh] left-[12dvw] z-10 w-fit">
                     <InfoDot text="Soft-Touch Linen Fabric" />
                 </div>
-                <div className="absolute top-[40dvh] right-[16dvw] z-10 w-fit">
-                    <InfoDot text="Ergonomic Curved Backrest" />
-                </div>
+
                 <div className="relative size-[40dvw]">
                     <div className="absolute top-[10dvh] -left-[5dvw] flex items-center gap-4">
                         <div className="bg-primary text-secondary p-3">

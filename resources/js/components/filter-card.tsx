@@ -3,9 +3,12 @@ import FilterButton from './filter-button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 interface FilterCardProps {
-    items: string[];
+    items: {
+        id: string;
+        value: string;
+    }[];
     title: string;
-    queryKey: string; // Bisa "category", "price", atau filter lainnya
+    queryKey: string;
 }
 
 interface PageProps {
@@ -32,14 +35,14 @@ export default function FilterCard({ items, title, queryKey }: FilterCardProps) 
     };
 
     return (
-        <Card className="max-w-sm shadow-none">
+        <Card className="max-w-xs shadow-none">
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-wrap gap-4">
+            <CardContent className="flex flex-wrap gap-2">
                 {items.map((item) => (
-                    <FilterButton key={item} active={item === activeItem} onClick={() => handleFilterClick(item)}>
-                        {item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()}
+                    <FilterButton key={item.id} active={item.value === activeItem} onClick={() => handleFilterClick(item.value)}>
+                        {item.value.charAt(0).toUpperCase() + item.value.slice(1).toLowerCase()}
                     </FilterButton>
                 ))}
             </CardContent>

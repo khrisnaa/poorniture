@@ -10,7 +10,7 @@ export default function Index() {
     return (
         <ClientLayout>
             <Head title="Home" />
-            <div>
+            <main>
                 <HeroSection />
                 <div className="absolute top-[100dvh] left-0 h-screen w-full">
                     <ImageSection />
@@ -20,7 +20,7 @@ export default function Index() {
                     <AboutSection />
                     <OfferSection />
                 </div>
-            </div>
+            </main>
         </ClientLayout>
     );
 }
