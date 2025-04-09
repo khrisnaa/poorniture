@@ -51,9 +51,14 @@ const FilterButton = ({ active, text }: { active?: boolean; text: string }) => {
 
 const FilteredProduct = () => {
     return (
-        <Card className="w-[calc(33%-16px)] border-none shadow-none">
-            <CardContent className="aspect-square">
+        <Card className="w-[calc(33%-16px)] cursor-pointer border-none shadow-none">
+            <CardContent className="group relative aspect-square">
                 <img alt="Product Image" src="/asset/black_chair.webp" className="h-full w-full object-cover" />
+                <div className="absolute top-[4vh] -left-[3dvw] flex translate-y-4 items-center gap-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <div className="bg-primary text-secondary p-3">
+                        <h3 className="text-sm">Minimalist Comfort</h3>
+                    </div>
+                </div>
             </CardContent>
             <CardFooter className="flex flex-col items-start gap-4">
                 <div>

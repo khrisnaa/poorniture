@@ -43,10 +43,8 @@ export default function HeroSection() {
                         <div className="bg-primary text-secondary p-3">
                             <h3 className="text-sm">Matte Black Chair</h3>
                         </div>
-
                         <div className="bg-primary h-0.5 w-16" />
                     </div>
-
                     <img src="/asset/hero_chair.webp" alt="Hero Image" className="h-full w-full object-contain" />
                 </div>
             </div>
