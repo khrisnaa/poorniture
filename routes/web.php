@@ -19,7 +19,7 @@ Route::prefix('products')->name('products.')->group(function () {
 Route::prefix('cart')->middleware(['auth'])->name('cart.')->group(function () {
     Route::post('/add', [CartController::class, 'addItem'])->name('add'); // Add or increase quantity
     Route::get('/items', [CartController::class, 'getItems'])->name('items'); // Get all cart items
-    Route::patch('/update', [CartController::class, 'updateItem'])->name('update'); // Update, decrease, or remove
+    Route::put('/update', [CartController::class, 'updateItem'])->name('update'); // Update, decrease, or remove
 });
 
 Route::prefix('orders')->name('orders.')->middleware(['auth'])->group(function () {

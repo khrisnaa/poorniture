@@ -30,8 +30,7 @@ export default function TopSection() {
                 </div>
             </div>
             <p className="font-inter max-w-xs py-4 text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, enim? Lorem ipsum dolor, sit amet consectetur adipisicing elit. A,
-                nostrum?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, enim? Lorem ipsum dolor, sit amet consectetur adipisicing elit.
             </p>
         </div>
     );

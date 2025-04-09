@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Category, Product } from '@/types/model';
 import { router } from '@inertiajs/react';
 import { ArrowRight, Plus } from 'lucide-react';
+import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Card, CardContent, CardFooter } from './ui/card';
 
@@ -12,22 +13,22 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-    console.log(product);
     const { activeView } = useViewContext();
-
     const { refreshQuantity } = useCart();
 
     const handleAddCart = () => {
         window.axios
-            .post(route('cart.store'), {
+            .post(route('cart.add'), {
                 product_id: product.id,
                 quantity: 1,
             })
-            .then(() => {
+            .then((response) => {
                 refreshQuantity();
+                toast(response.data.message);
             })
             .catch((error) => {
                 console.error('Gagal menambahkan ke cart:', error);
+                toast('Something went wrong.');
             });
     };
 
@@ -42,7 +43,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <ArrowRight className="-rotate-45 transition-all duration-300 group-hover:rotate-0" />
                 </Button>
             </CardContent>
-            <CardFooter className="h-full flex-col items-start justify-between gap-6 px-0">
+            <CardFooter className="h-full max-h-36 flex-col items-start justify-between gap-6 px-0">
                 <div>
                     <p className="line-clamp-2 text-2xl font-bold">{product.name}</p>
                     <p className="text-muted-foreground text-sm capitalize">{product.category.name}</p>

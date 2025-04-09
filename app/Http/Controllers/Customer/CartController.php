@@ -35,7 +35,7 @@ class CartController extends Controller
             $item->save();
         });
 
-        return response()->json(['message' => 'Product added to cart successfully.']);
+        return response()->json(['message' => 'Added item to cart.']);
     }
 
 
@@ -50,7 +50,7 @@ class CartController extends Controller
             return response()->json(['items' => []]);
         }
 
-        $items = CartItem::with('product')
+        $items = CartItem::with('product.category')
             ->whereHas('cart', fn($q) => $q->where('user_id', $user->id))
             ->get();
 

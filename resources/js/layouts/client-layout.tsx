@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import { CartProvider } from '@/context/cart-context';
 import { ViewProvider } from '@/context/view-context';
 import AppLayoutTemplate from '@/layouts/app/app-header-layout';
@@ -14,6 +15,7 @@ export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
         <CartProvider>
             <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
                 <main className="px-3">{children}</main>
+                <Toaster />
             </AppLayoutTemplate>
         </CartProvider>
     </ViewProvider>
