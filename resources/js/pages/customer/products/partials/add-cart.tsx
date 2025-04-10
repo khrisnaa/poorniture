@@ -17,8 +17,12 @@ export default function AddCart({ id }: { id: string }) {
                 toast(response.data.message);
             })
             .catch((error) => {
-                console.error('Failed add item to cart:', error);
-                toast('Something went wrong.');
+                if (error.response?.status === 401) {
+                    window.location.href = route('login');
+                } else {
+                    console.error('Failed add item to cart:', error);
+                    toast('Something went wrong.');
+                }
             });
     };
     return (
