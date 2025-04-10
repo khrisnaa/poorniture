@@ -58,7 +58,7 @@ export default function CartSheet({ open, onOpenChange }: ChartSheetProps) {
                 </div>
                 <SheetFooter>
                     <Button disabled={items.length == 0} onClick={checkout}>
-                        Checkout
+                        Checkoutx
                     </Button>
                 </SheetFooter>
             </SheetContent>

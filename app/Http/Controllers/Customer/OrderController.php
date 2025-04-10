@@ -109,7 +109,7 @@ class OrderController extends Controller
             abort(403);
         }
 
-        if ($order->status === 'paid') {
+        if ($order->status == 'completed') {
             return redirect()->route('orders.show', $order->id)
                 ->with('error', 'This order has already been paid');
         }
