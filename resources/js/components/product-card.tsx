@@ -27,7 +27,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 toast(response.data.message);
             })
             .catch((error) => {
-                console.error('Gagal menambahkan ke cart:', error);
+                console.error('Failed add item to cart:', error);
                 toast('Something went wrong.');
             });
     };

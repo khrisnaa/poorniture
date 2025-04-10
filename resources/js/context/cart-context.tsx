@@ -15,15 +15,18 @@ const CartContext = createContext<CartContextType>({
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [quantity, setQuantity] = useState(0);
 
-    const refreshQuantity = async () => {
-        try {
-            const res = await window.axios.get(route('cart.items'));
-            const items = res.data.items || [];
-            const total = items.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0);
-            setQuantity(total);
-        } catch (error) {
-            console.error('Failed to fetch cart items', error);
-        }
+    const refreshQuantity = () => {
+        window.axios
+            .get(route('cart.items'))
+            .then((res) => {
+                console.log('MAU JALAN');
+                const items = res.data.items || [];
+                const total = items.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0);
+                setQuantity(total);
+            })
+            .catch((error) => {
+                console.error('Failed to fetch cart items', error);
+            });
     };
 
     useEffect(() => {
