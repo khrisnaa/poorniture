@@ -16,15 +16,15 @@ export default function ImageSection() {
             className="bg-primary relative flex h-screen items-center justify-center overflow-hidden"
             style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
         >
-            <div className="absolute top-[10dvh] left-[2dvw] z-50">
+            <div className="absolute top-[10dvh] left-[2dvw] z-10">
                 <p className="text-secondary text-xl font-bold">Poorniture</p>
                 <p className="text-secondary -translate-y-2 text-xl font-bold">Collection.</p>
             </div>
-            <div className="absolute right-[2dvw] bottom-[10dvh] z-50">
+            <div className="absolute right-[2dvw] bottom-[10dvh] z-10">
                 <h2 className="text-secondary max-w-xl text-end text-7xl font-bold tracking-normal">Designing Spaces, Defining Comfort.</h2>
             </div>
 
-            <div className="absolute z-50">
+            <div className="absolute z-10">
                 <AppLogoIcon className="text-secondary/30 size-64" />
             </div>
             <div className="fixed top-[-10vh] left-0 h-[120vh] w-full">

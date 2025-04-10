@@ -10,7 +10,7 @@ export default function OfferSection() {
             >
                 <div className="absolute inset-0 bg-black/30" />
             </div>
-            <div className="relative z-50 flex h-screen flex-col justify-center gap-16">
+            <div className="relative z-10 flex h-screen flex-col justify-center gap-16">
                 <h1 className="text-secondary text-9xl font-bold">
                     Give your space <br /> a special <br /> touch!
                 </h1>

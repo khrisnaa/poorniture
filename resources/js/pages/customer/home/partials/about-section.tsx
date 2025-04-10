@@ -14,7 +14,7 @@ export default function AboutSection() {
                     <ArrowRight className="size-4 -rotate-45 transition-all duration-300 group-hover:rotate-0" />
                 </Link>
             </div>
-            <div className="relative z-50 w-full -translate-x-[5dvw] translate-y-[5dvh]">
+            <div className="relative z-10 w-full -translate-x-[5dvw] translate-y-[5dvh]">
                 <h1 className="max-w-[40rem] text-8xl font-bold">
                     Quality is our <span className="text-white">guiding</span> prin<span className="text-white">ciple.</span>
                 </h1>

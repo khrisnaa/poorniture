@@ -52,7 +52,7 @@ function SheetContent({
 }) {
   return (
     <SheetPortal>
-      <SheetOverlay className="z-[101]" />
+      <SheetOverlay />
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(

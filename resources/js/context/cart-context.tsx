@@ -19,7 +19,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         window.axios
             .get(route('cart.items'))
             .then((res) => {
-                console.log('MAU JALAN');
                 const items = res.data.items || [];
                 const total = items.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0);
                 setQuantity(total);
