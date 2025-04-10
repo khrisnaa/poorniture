@@ -3,7 +3,8 @@
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\OrderController;
-// use App\Http\Controllers\CLient\PaymentController;
+use App\Http\Controllers\CLient\PaymentController;
+use App\Http\Controllers\MidtransWebhookController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -28,6 +29,9 @@ Route::prefix('orders')->name('orders.')->middleware(['auth'])->group(function (
     Route::get('/{order}', [OrderController::class, 'showDetails'])->name('show'); // Order details
     Route::get('/{order}/pay', [OrderController::class, 'payOrder'])->name('payment'); // Payment page
 });
+
+Route::post('/callback', [MidtransWebhookController::class, 'handle']);
+
 
 // Route::post('/payment/webhook', [PaymentWebhookController::class, 'handle']);
 

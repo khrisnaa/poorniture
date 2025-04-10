@@ -124,9 +124,7 @@ class OrderController extends Controller
                 ->with('error', 'Payment gateway error: ' . $e->getMessage());
         }
 
-        return Inertia::render('customer/orders/payment', [
-            'order' => $order,
-            'clientKey' => config('services.midtrans.client_key'),
-        ]);
+        $clientKey = config('services.midtrans.client_key');
+        return Inertia::render('customer/orders/payment', compact('order', 'clientKey'));
     }
 }

@@ -1,3 +1,4 @@
+import { OrderItem } from '@/types/model';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -18,4 +19,19 @@ export const getCookie = (name: string): string | null => {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
     return null;
+};
+
+export const formatPrice = (value: number) => {
+    return `IDR ${new Intl.NumberFormat('id-ID', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(value)}`;
+};
+
+export const calculateTotal = (items: OrderItem[], shipping: number = 1000000) => {
+    const subtotal = items.reduce((sum, item) => sum + Number(item.subtotal || 0), 0);
+    const tax = (subtotal + shipping) * 0.1;
+    const total = subtotal + shipping + tax;
+
+    return { subtotal, tax, total };
 };
