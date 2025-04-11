@@ -1,5 +1,6 @@
 import DashboardCard from '@/components/dashboard-card';
 import AppLayout from '@/layouts/app-layout';
+import { formatPrice } from '@/lib/utils';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { ChartAreaInteractive } from './partials/chart-area-interactive';
@@ -11,7 +12,37 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard() {
+export interface TrendData {
+    total: number;
+    last: number;
+    current?: number;
+    trend: 'up' | 'down' | 'flat';
+    percentage: number;
+}
+
+export interface PageProps {
+    revenue: TrendData;
+    users: TrendData;
+    products: TrendData;
+}
+
+export default function Dashboard({ revenue, users, products }: PageProps) {
+    const formatPercentage = (value: number) => {
+        return `+${value.toString()}%`;
+    };
+
+    function getTrendDescription(trend: 'up' | 'down' | 'flat', type: string): string {
+        switch (trend) {
+            case 'up':
+                return `More ${type} this month!`;
+            case 'down':
+                return `${type.charAt(0).toUpperCase() + type.slice(1)} decreased compared to last month.`;
+            case 'flat':
+                return `${type.charAt(0).toUpperCase() + type.slice(1)} stayed the same as last month.`;
+            default:
+                return '';
+        }
+    }
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -21,27 +52,30 @@ export default function Dashboard() {
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative h-48 overflow-hidden rounded-xl border">
                         <DashboardCard
                             title="Total Revenue"
-                            value="IDR 250.000.000"
-                            percentageChange="+12.5%"
-                            description="Revenue is trending up this month!"
+                            value={formatPrice(revenue.total)}
+                            percentageChange={formatPercentage(revenue.percentage)}
+                            trend={revenue.trend}
+                            description={`Revenue is trending ${revenue.trend} this month!`}
                         />
                         ;
                     </div>
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative h-48 overflow-hidden rounded-xl border">
                         <DashboardCard
                             title="Total User Registrations"
-                            value="5,320 Users"
-                            percentageChange="+8.2%"
-                            description="More users are joining this month!"
+                            value={users.total + ' Users'}
+                            percentageChange={formatPercentage(users.percentage)}
+                            trend={users.trend}
+                            description={getTrendDescription(users.trend, 'users')}
                         />
                         ;
                     </div>
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative h-48 overflow-hidden rounded-xl border">
                         <DashboardCard
                             title="New Products Added"
-                            value="32 Products"
-                            percentageChange="+5.6%"
-                            description="Your catalog is expanding!"
+                            value={products.total + ' Products'}
+                            percentageChange={formatPercentage(products.percentage)}
+                            trend={products.trend}
+                            description={getTrendDescription(products.trend, 'products')}
                         />
                         ;
                     </div>
