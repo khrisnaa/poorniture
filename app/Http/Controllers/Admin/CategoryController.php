@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Http\Requests\Admin\UpdateCategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -17,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::withCount('products')->latest()->paginate(10);
+        $categories = Category::with('products')->latest()->paginate(10);
 
         return Inertia::render('admin/categories/index', compact('categories'));
     }
@@ -73,9 +71,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->products()->exists()) {
+            return redirect()->back()->with('error', 'Cannot delete category that has products.');
+        }
+
         $category->delete();
 
-        // Using modal use redirect back
-        return response()->json(['message' => 'Category deleted successfully.']);
+        return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 }

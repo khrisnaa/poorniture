@@ -5,6 +5,7 @@ import { router } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export type ProductColumn = {
     id: string;
@@ -66,6 +67,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
             const product = row.original;
 
             const [open, setOpen] = useState(false);
+
             return (
                 <div className="flex justify-center">
                     <DropdownMenu>
@@ -87,8 +89,18 @@ export const columns: ColumnDef<ProductColumn>[] = [
                         open={open}
                         onOpenChange={() => setOpen(!open)}
                         action={() => {
-                            router.delete(route('admin.products.destroy', product.id));
-                            setOpen(false);
+                            router.delete(route('admin.products.destroy', product.id), {
+                                preserveScroll: true,
+                                onSuccess: (page) => {
+                                    const message = (page as any)?.props?.message ?? 'Deleted successfully';
+                                    toast.success(message);
+                                    console.log(message);
+                                    setOpen(false);
+                                },
+                                onError: () => {
+                                    toast.error('Failed to delete item');
+                                },
+                            });
                         }}
                         title="Are you sure?"
                         description="Deleting this item will permanently remove it from the system. This action cannot be undone. Do you wish to proceed?"
