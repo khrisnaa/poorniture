@@ -26,7 +26,7 @@ export default function Detail({ product }: PageProps) {
                         </div>
                         <p className="px-2 text-sm">{product.description}</p>
                     </div>
-                    <AddCart id={product.id} />
+                    {product.stock != 0 && <AddCart id={product.id} />}
                 </div>
                 <div className="w-2/3">
                     <ImageSlider />
