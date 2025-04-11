@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Settings\AdminPasswordController;
 use App\Http\Controllers\Settings\AdminProfileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,7 +21,6 @@ Route::middleware(['auth', 'verified', 'admin'])
         Route::resource('/categories', CategoryController::class);
         Route::resource('/products', ProductController::class);
         Route::resource('/orders', OrderController::class)->only(['index', 'show']);
-        Route::resource('/users', UserController::class)->only(['index', 'show']);
     });
 
 

@@ -1,5 +1,12 @@
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { formatPrice } from '@/lib/utils';
+import { Order, OrderItem, Product } from '@/types/model';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import DetailModal from './detail-modal';
 
 export type OrderColumn = {
     id: string;
@@ -38,6 +45,9 @@ export const columns: ColumnDef<OrderColumn>[] = [
     {
         accessorKey: 'total_price',
         header: 'Total Price',
+        cell: ({ row }) => {
+            return <span>{formatPrice(row.original.total_price)}</span>;
+        },
     },
     {
         accessorKey: 'status',
@@ -50,6 +60,42 @@ export const columns: ColumnDef<OrderColumn>[] = [
                     Status
                     <ArrowUpDown className="h-4 w-4" />
                 </button>
+            );
+        },
+    },
+    {
+        id: 'actions',
+        cell: ({ row }) => {
+            const id = row.original.id;
+
+            const [order, setOrder] = useState<(Order & { items: (OrderItem & { product: Product })[] }) | null>(null);
+
+            const [open, setOpen] = useState(false);
+
+            const fetchOrder = async () => {
+                try {
+                    const response = await window.axios.get(route('admin.orders.show', id));
+                    setOrder(response.data.order);
+                    setOpen(true);
+                } catch (error) {
+                    toast.error('Failed to load order details');
+                }
+            };
+            return (
+                <div className="flex justify-center">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild className="cursor-pointer">
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={fetchOrder}>Show</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    {order && <DetailModal open={open} onOpenChange={() => setOpen(!open)} order={order} />}
+                </div>
             );
         },
     },

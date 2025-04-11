@@ -80,9 +80,16 @@ export const columns: ColumnDef<CategoryColumn>[] = [
                             router.delete(route('admin.categories.destroy', category.id), {
                                 preserveScroll: true,
                                 onSuccess: (page) => {
-                                    const message = (page as any)?.props?.message ?? 'Deleted successfully';
-                                    toast.success(message);
-                                    console.log(message);
+                                    const success = (page as any)?.props?.flash?.success;
+                                    const error = (page as any)?.props?.flash?.error;
+
+                                    if (success) {
+                                        toast.success(success);
+                                    }
+
+                                    if (error) {
+                                        toast.error(error);
+                                    }
                                     setOpen(false);
                                 },
                                 onError: () => {

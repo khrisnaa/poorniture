@@ -39,9 +39,12 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
+        $order = Order::with('items.product')->findOrFail($id);
 
+        return response()->json([
+            'order' => $order,
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      */
