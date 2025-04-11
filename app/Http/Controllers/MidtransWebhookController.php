@@ -32,12 +32,14 @@ class MidtransWebhookController extends Controller
         }
 
         if (in_array($transactionStatus, ['capture', 'settlement'])) {
-            foreach ($order->items as $item) {
-                $product = $item->product;
-                if ($product && $product->stock >= $item->quantity) {
-                    $product->decrement('stock', $item->quantity);
-                }
-            }
+
+            // Decrement Stock
+            // foreach ($order->items as $item) {
+            //     $product = $item->product;
+            //     if ($product && $product->stock >= $item->quantity) {
+            //         $product->decrement('stock', $item->quantity);
+            //     }
+            // }
 
             $order->update([
                 'status' => 'completed',

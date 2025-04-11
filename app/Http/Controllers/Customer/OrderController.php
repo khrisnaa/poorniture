@@ -62,7 +62,15 @@ class OrderController extends Controller
             ]);
 
             foreach ($cart->items as $item) {
-                $subtotal = $item->product->price * $item->quantity;
+                $product = $item->product;
+
+                if ($product->stock < $item->quantity) {
+                    throw new \Exception("Stok {$product->name} tidak cukup");
+                }
+
+                $product->decrement('stock', $item->quantity);
+
+                $subtotal = $product->price * $item->quantity;
 
                 $order->items()->create([
                     'product_id' => $item->product_id,
