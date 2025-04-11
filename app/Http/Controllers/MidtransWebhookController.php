@@ -16,7 +16,6 @@ class MidtransWebhookController extends Controller
 
         $orderId = $payload['order_id'] ?? null;
         $transactionStatus = $payload['transaction_status'] ?? null;
-        $fraudStatus = $payload['fraud_status'] ?? null;
 
         if (!$orderId) {
             return response()->json(['message' => 'Invalid payload'], 400);
@@ -28,19 +27,30 @@ class MidtransWebhookController extends Controller
             return response()->json(['message' => 'Order not found'], 404);
         }
 
-        if (in_array($transactionStatus, ['capture', 'settlement'])) {
-            $status = 'completed';
-        } elseif ($transactionStatus == 'pending') {
-            $status = 'pending';
-        } elseif (in_array($transactionStatus, ['deny', 'cancel', 'expire', 'failure'])) {
-            $status = 'canceled';
-        } else {
-            $status = 'pending';
+        if ($order->status === 'completed') {
+            return response()->json(['message' => 'Order already completed'], 200);
         }
 
-        $order->update([
-            'status' => $status,
-        ]);
+        if (in_array($transactionStatus, ['capture', 'settlement'])) {
+            foreach ($order->items as $item) {
+                $product = $item->product;
+                if ($product && $product->stock >= $item->quantity) {
+                    $product->decrement('stock', $item->quantity);
+                }
+            }
+
+            $order->update([
+                'status' => 'completed',
+            ]);
+        } elseif (in_array($transactionStatus, ['deny', 'cancel', 'expire', 'failure'])) {
+            $order->update([
+                'status' => 'canceled',
+            ]);
+        } elseif ($transactionStatus == 'pending') {
+            $order->update([
+                'status' => 'pending',
+            ]);
+        }
 
         return response()->json(['message' => 'Webhook handled']);
     }
