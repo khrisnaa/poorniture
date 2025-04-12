@@ -1,9 +1,11 @@
+import PdfDownload from '@/components/pdf-download';
+import PdfStream from '@/components/pdf-stream';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { formatPrice } from '@/lib/utils';
 import { Order, OrderItem, Product } from '@/types/model';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, MoreHorizontal, NotebookIcon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import DetailModal from './detail-modal';
@@ -91,7 +93,17 @@ export const columns: ColumnDef<OrderColumn>[] = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={fetchOrder}>Show</DropdownMenuItem>
+                            <DropdownMenuItem onClick={fetchOrder}>
+                                <Button variant="ghost">
+                                    <NotebookIcon /> Show
+                                </Button>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <PdfDownload variant="ghost" orderId={id} />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <PdfStream variant="ghost" orderId={id} />
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                     {order && <DetailModal open={open} onOpenChange={() => setOpen(!open)} order={order} />}

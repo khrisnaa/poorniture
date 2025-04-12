@@ -14,14 +14,14 @@ class OrderPdfController extends Controller
         // Eager load relationships with proper case
         $order->load(['user', 'items.product']);
 
-        $pdf = Pdf::loadView('pdf.order', [
+        $pdf = Pdf::loadView('pdf.invoice', [
             'order' => $order,
             'user' => $order->user,
             'items' => $order->items,
         ]);
 
         // Use the correct header for download
-        return $pdf->download("order-{$order->id}.pdf");
+        return $pdf->download("invoice-{$order->id}.pdf");
     }
 
     public function stream(Order $order)
@@ -29,7 +29,7 @@ class OrderPdfController extends Controller
         // Eager load relationships
         $order->load(['user', 'items.product']);
 
-        $pdf = Pdf::loadView('pdf.order', [
+        $pdf = Pdf::loadView('pdf.invoice', [
             'order' => $order,
             'user' => $order->user,
             'items' => $order->items,
@@ -38,6 +38,6 @@ class OrderPdfController extends Controller
         // Stream the PDF with proper headers
         return response($pdf->output(), 200)
             ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="order-' . $order->id . '.pdf"');
+            ->header('Content-Disposition', 'inline; filename="invoice-' . $order->id . '.pdf"');
     }
 }

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { router } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, EditIcon, MoreHorizontal, TrashIcon } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -66,10 +66,18 @@ export const columns: ColumnDef<CategoryColumn>[] = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => router.get(route('admin.categories.edit', category.id))}>Edit</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.get(route('admin.categories.edit', category.id))}>
+                                <Button variant="ghost">
+                                    <EditIcon />
+                                    Edit
+                                </Button>
+                            </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="text-red-400" onClick={() => setOpen(true)}>
-                                Delete
+                                <Button variant="ghost">
+                                    <TrashIcon />
+                                    Delete
+                                </Button>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
