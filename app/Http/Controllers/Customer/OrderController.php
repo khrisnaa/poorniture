@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\UpdateOrderAddressRequest;
 use App\Models\Order;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
@@ -143,5 +144,20 @@ class OrderController extends Controller
 
         $clientKey = config('services.midtrans.client_key');
         return Inertia::render('customer/orders/payment', compact('order', 'clientKey'));
+    }
+
+    public function updateAddress(Request $request, Order $order)
+    {
+
+
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $order->update([
+            'address' => $request->address,
+        ]);
+
+        return response()->noContent();
     }
 }

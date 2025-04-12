@@ -39,6 +39,7 @@ export interface Order {
     total_price: number;
     status: 'pending' | 'completed' | 'canceled';
     snap_token?: string;
+    address?: string;
     created_at: string;
     updated_at: string;
 }

@@ -16,33 +16,55 @@ interface PageProps {
     order: Order & { items: (OrderItem & { product: Product })[] };
     clientKey: string;
 }
+
+type ProfileForm = {
+    name: string;
+    email: string;
+    phone?: string;
+};
+
 export default function Payment({ order, clientKey }: PageProps) {
     const page = usePage<SharedData>();
     const { auth } = page.props;
 
     const shipping = 1000000;
     const { subtotal, tax, total } = calculateTotal(order.items);
+    const [address, setAddress] = useState(order.address ?? '');
+    const [errors, setErrors] = useState('');
 
     const { snapReady, error, setError } = useSnapLoader(clientKey, order.snap_token as string);
 
     const [isProcessing, setIsProcessing] = useState(false);
 
-    const handlePayment = () => {
+    const handlePayment = async () => {
+        if (!address) {
+            return setErrors('Address is required.');
+        }
         if (!snapReady) return setError('Payment gateway is initializing. Please wait...');
         if (!order.snap_token) return setError('Payment token is not available. Please try again.');
 
         setIsProcessing(true);
         setError(null);
 
-        window.snap.pay(order.snap_token, {
-            onSuccess: () => router.visit(`/orders/${order.id}`),
-            onPending: () => router.visit(`/orders/${order.id}`),
-            onError: () => {
-                setError('Payment failed. Please try again.');
-                setIsProcessing(false);
-            },
-            onClose: () => setIsProcessing(false),
-        });
+        try {
+            await window.axios.put(route('orders.update', order.id), {
+                address,
+            });
+
+            window.snap.pay(order.snap_token, {
+                onSuccess: () => router.visit(`/orders/${order.id}`),
+                onPending: () => router.visit(`/orders/${order.id}`),
+                onError: () => {
+                    setError('Payment failed. Please try again.');
+                    setIsProcessing(false);
+                },
+                onClose: () => setIsProcessing(false),
+            });
+        } catch (error) {
+            console.log(error);
+            setError('Failed to update address. Please try again.');
+            setIsProcessing(false);
+        }
     };
 
     useEffect(() => {
@@ -63,11 +85,11 @@ export default function Payment({ order, clientKey }: PageProps) {
                                 <p className="text-muted-foreground">Review your order and complete the checkout process.</p>
                             </div>
                             <div className="space-y-4">
+                                <div>
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input className="disabled:cursor-default disabled:opacity-80" disabled id="name" value={auth.user.name} />
+                                </div>
                                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                                    <div>
-                                        <Label htmlFor="name">Name</Label>
-                                        <Input className="disabled:cursor-default disabled:opacity-80" disabled id="name" value={auth.user.name} />
-                                    </div>
                                     <div>
                                         <Label htmlFor="email">Email</Label>
                                         <Input
@@ -78,10 +100,28 @@ export default function Payment({ order, clientKey }: PageProps) {
                                             value={auth.user.email}
                                         />
                                     </div>
+                                    <div>
+                                        <Label htmlFor="phone">Phone</Label>
+                                        <Input
+                                            className="disabled:cursor-default disabled:opacity-80"
+                                            disabled
+                                            id="phone"
+                                            type="text"
+                                            value={auth.user.phone}
+                                        />
+                                    </div>
                                 </div>
+
                                 <div>
                                     <Label htmlFor="address">Address</Label>
-                                    <Textarea id="address" rows={3} placeholder="123 Main St, Anytown USA" />
+                                    <Textarea
+                                        id="address"
+                                        rows={3}
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                        placeholder="123 Main St, Anytown USA"
+                                    />
+                                    {errors && <div className="text-sm text-red-500">{errors}</div>}
                                 </div>
                                 {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                     <div>

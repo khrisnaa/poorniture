@@ -14,6 +14,7 @@ type RegisterForm = {
     email: string;
     password: string;
     password_confirmation: string;
+    phone: string;
 };
 
 export default function Register() {
@@ -22,6 +23,7 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        phone: '',
     });
 
     const submit: FormEventHandler = (e) => {
@@ -67,6 +69,30 @@ export default function Register() {
                             placeholder="email@example.com"
                         />
                         <InputError message={errors.email} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="phone">Phone</Label>
+
+                        <div className="mt-1 flex items-center">
+                            <Input
+                                id="phone"
+                                className="mt-1 block w-full"
+                                value={data.phone}
+                                onChange={(e) => {
+                                    let phoneNumber = e.target.value;
+                                    if (phoneNumber.startsWith('0')) {
+                                        phoneNumber = '62' + phoneNumber.slice(1);
+                                    }
+                                    setData('phone', phoneNumber);
+                                }}
+                                required
+                                autoComplete="phone"
+                                placeholder="62xxxxxxxx"
+                            />
+                        </div>
+
+                        <InputError className="mt-2" message={errors.phone} />
                     </div>
 
                     <div className="grid gap-2">
