@@ -1,5 +1,6 @@
 import AppLogoIcon from '@/components/app-logo-icon';
 import BackButton from '@/components/back-button';
+import PdfButtons from '@/components/pdf-buttons';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -35,6 +36,7 @@ export default function Detail({ order }: PageProps) {
             <div className="font-inter relative">
                 <div className="bg-muted space-y-4 rounded-lg p-6">
                     <div className="flex items-center justify-between">
+                        <PdfButtons orderId={order.id} />
                         <h2 className="text-xl font-bold">Order Details</h2>
                         <Badge className="rounded-md px-4 py-2 capitalize">{order.status}</Badge>
                     </div>

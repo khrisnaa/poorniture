@@ -4,6 +4,7 @@ use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\OrderController;
+use App\Http\Controllers\Customer\OrderPdfController;
 use App\Http\Controllers\MidtransWebhookController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,7 +33,8 @@ Route::prefix('orders')->name('orders.')->middleware(['auth'])->group(function (
     Route::post('/checkout', [OrderController::class, 'processCheckout'])->name('checkout'); // Checkout action
     Route::get('/{order}', [OrderController::class, 'showDetails'])->name('show'); // Order details
     Route::get('/{order}/pay', [OrderController::class, 'payOrder'])->name('payment'); // Payment page
-    Route::put('/{order}', [OrderController::class, 'updateAddress'])->name('update');
+    Route::get('/{order}/pdf/download', [OrderPdfController::class, 'download'])->name('pdf.download');
+    Route::get('/{order}/pdf/stream', [OrderPdfController::class, 'stream'])->name('pdf.download');
 });
 
 
