@@ -1,23 +1,28 @@
 import { Button } from '@/components/ui/button';
+import { ProductImage } from '@/types/model';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 
-const images = [
-    {
-        id: 'item-1',
-        src: '/furniture/calia-1.png',
-    },
-    {
-        id: 'item-2',
-        src: '/furniture/calia-2.png',
-    },
-    {
-        id: 'item-3',
-        src: '/asset/black_chair.webp',
-    },
-];
+// const images = [
+//     {
+//         id: 'item-1',
+//         image_url: '/furniture/calia-1.png',
+//     },
+//     {
+//         id: 'item-2',
+//         image_url: '/furniture/calia-2.png',
+//     },
+//     {
+//         id: 'item-3',
+//         image_url: '/asset/black_chair.webp',
+//     },
+// ];
 
-export default function ImageSlider() {
+interface ImageSliderProps {
+    images: ProductImage[];
+}
+
+export default function ImageSlider({ images }: ImageSliderProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const prevSlide = () => {
@@ -47,7 +52,7 @@ export default function ImageSlider() {
                                 key={image.id}
                                 className={`absolute right-0 left-0 mx-auto h-full max-h-[80dvh] w-[60%] transition-all duration-300 ease-in-out ${positionClass}`}
                             >
-                                <img src={image.src} alt="slider" className="h-full w-full rounded-lg object-cover" />
+                                <img src={`/storage/${image.image_url}`} alt="slider" className="h-full w-full rounded-lg object-cover" />
                             </div>
                         );
                     })}

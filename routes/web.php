@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\MidtransWebhookController;
@@ -11,9 +12,13 @@ Route::get('/', function () {
     return Inertia::render('customer/home/index');
 })->name('home');
 
+Route::get('/categories/names', [HomeController::class, 'listCategories'])->name('categories.names');
+Route::get('/products/latest', [HomeController::class, 'latestProducts'])->name('products.latest');    // Latest products
+
 Route::prefix('products')->name('products.')->group(function () {
     Route::get('/', [ProductController::class, 'listProducts'])->name('index'); // List & filter products
     Route::get('/{product}', [ProductController::class, 'productDetails'])->name('show'); // Product detail page
+
 });
 
 Route::prefix('cart')->middleware(['auth'])->name('cart.')->group(function () {
@@ -28,6 +33,8 @@ Route::prefix('orders')->name('orders.')->middleware(['auth'])->group(function (
     Route::get('/{order}', [OrderController::class, 'showDetails'])->name('show'); // Order details
     Route::get('/{order}/pay', [OrderController::class, 'payOrder'])->name('payment'); // Payment page
 });
+
+
 
 Route::post('/callback', [MidtransWebhookController::class, 'handle']);
 

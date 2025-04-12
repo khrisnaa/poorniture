@@ -7,7 +7,7 @@ import AddCart from './partials/add-cart';
 import ImageSlider from './partials/image-slider';
 
 interface PageProps {
-    product: Product & { category: Category } & { images: ProductImage };
+    product: Product & { category: Category } & { images: ProductImage[] };
 }
 
 export default function Detail({ product }: PageProps) {
@@ -29,7 +29,7 @@ export default function Detail({ product }: PageProps) {
                     {product.stock != 0 && <AddCart id={product.id} />}
                 </div>
                 <div className="w-2/3">
-                    <ImageSlider />
+                    <ImageSlider images={product.images} />
                 </div>
             </main>
         </ClientLayout>

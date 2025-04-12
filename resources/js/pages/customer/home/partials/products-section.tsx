@@ -1,9 +1,50 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { ArrowRight, Plus } from 'lucide-react';
+import { cn, formatPrice } from '@/lib/utils';
+import { Product } from '@/types/model';
+import { ArrowRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+type LatestProducts = {
+    tables: Product[];
+    buffets: Product[];
+    nightsands: Product[];
+    sofas: Product[];
+    chairs: Product[];
+};
 
 export default function ProductsSection() {
+    const [categories, setCategories] = useState<string[]>([]);
+    const [latestProducts, setLatestProducts] = useState<LatestProducts | null>(null);
+    const [activeCategory, setActiveCategory] = useState<string>(categories[0]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [categoriesRes, productsRes] = await Promise.all([
+                    window.axios.get(route('categories.names')),
+                    window.axios.get(route('products.latest')),
+                ]);
+
+                const fetchedCategories = categoriesRes.data.categories;
+                setCategories(fetchedCategories);
+                setLatestProducts(productsRes.data.latestProducts);
+
+                if (fetchedCategories.length > 0) {
+                    setActiveCategory(fetchedCategories[0]); // auto set category aktif pertama
+                }
+            } catch (error) {
+                console.error('Gagal mengambil data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const handleActive = (category: string) => {
+        setActiveCategory(category);
+    };
+
     return (
         <div className="min-h-screen space-y-16 py-16">
             <div className="flex items-end justify-between">
@@ -15,18 +56,19 @@ export default function ProductsSection() {
             <div className="flex">
                 <div className="w-full max-w-1/3">
                     <div className="flex max-w-72 flex-col gap-4 py-8">
-                        <FilterButton active text="Seating" />
-                        <FilterButton text="Tables" />
-                        <FilterButton text="Cabinets" />
-                        <FilterButton text="Bedrooms" />
-                        <FilterButton text="Art & Decor" />
+                        {categories.map((category, i) => (
+                            <FilterButton onClick={() => handleActive(category)} key={i} active={category === activeCategory} text={category} />
+                        ))}
                     </div>
                 </div>
                 <div className="w-full max-w-2/3">
                     <div className="flex flex-wrap gap-4">
-                        <FilteredProduct />
-                        <FilteredProduct />
-                        <FilteredProduct />
+                        {/* @ts-ignore */}
+                        {latestProducts && latestProducts[activeCategory] ? (
+                            latestProducts[activeCategory].map((product, index) => <FilteredProduct key={index} product={product} />)
+                        ) : (
+                            <p>No products found for this category.</p>
+                        )}
                     </div>
                 </div>
             </div>
@@ -34,9 +76,16 @@ export default function ProductsSection() {
     );
 }
 
-const FilterButton = ({ active, text }: { active?: boolean; text: string }) => {
+interface FilterButtonProps {
+    active?: boolean;
+    text: string;
+    onClick: () => void;
+}
+
+const FilterButton = ({ active, text, onClick }: FilterButtonProps) => {
     return (
         <Button
+            onClick={onClick}
             variant="outline"
             className={cn(
                 'group flex justify-between rounded-full !px-6 py-5 font-medium uppercase transition-all duration-200',
@@ -49,9 +98,14 @@ const FilterButton = ({ active, text }: { active?: boolean; text: string }) => {
     );
 };
 
-const FilteredProduct = () => {
+interface FilteredProductProps {
+    product: Product;
+}
+encodeURI;
+
+const FilteredProduct = ({ product }: FilteredProductProps) => {
     return (
-        <Card className="w-[calc(33%-16px)] cursor-pointer border-none shadow-none">
+        <Card className="w-[calc(33%-16px)] cursor-pointer justify-between border-none shadow-none">
             <CardContent className="group relative aspect-square">
                 <img alt="Product Image" src="/asset/black_chair.webp" className="h-full w-full object-cover" />
                 <div className="absolute top-[4vh] -left-[3dvw] flex translate-y-4 items-center gap-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
@@ -62,14 +116,11 @@ const FilteredProduct = () => {
             </CardContent>
             <CardFooter className="flex flex-col items-start gap-4">
                 <div>
-                    <p className="text-3xl font-bold">Morizine</p>
-                    <p className="text-muted-foreground text-sm">Chair with beautfiul black skins.</p>
+                    <p className="text-3xl font-bold">{product.name}</p>
+                    <p className="text-muted-foreground text-sm">{product.description}</p>
                 </div>
                 <div className="flex w-full items-center justify-between">
-                    <p className="text-2xl font-semibold">$110</p>
-                    <Button variant="outline" className="size-10 rounded-full">
-                        <Plus />
-                    </Button>
+                    <p className="text-2xl font-semibold">{formatPrice(product.price)}</p>
                 </div>
             </CardFooter>
         </Card>

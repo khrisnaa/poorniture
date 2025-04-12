@@ -5,6 +5,7 @@ import { Category, Product } from '@/types/model';
 import { router } from '@inertiajs/react';
 import { ArrowRight, Plus } from 'lucide-react';
 import { toast } from 'sonner';
+import AppLogoIcon from './app-logo-icon';
 import { Button } from './ui/button';
 import { Card, CardContent, CardFooter } from './ui/card';
 
@@ -40,10 +41,16 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Card className={cn('group w-full border-none shadow-none', activeView === 2 ? 'sm:w-[calc(50%-32px)]' : 'sm:w-[calc(33.33%-32px)]')}>
             <CardContent
                 onClick={() => router.get(route('products.show', product.id))}
-                className={cn('relative aspect-square max-h-64', product.stock === 0 && 'cursor-pointer')}
+                className={cn('relative aspect-square max-h-64', product.stock != 0 && 'cursor-pointer')}
             >
                 {product.stock === 0 && <span className="absolute bottom-0 left-0">Out of stock</span>}
-                <img src={product.thumbnail ? `/storage/${product.thumbnail}` : '/asset/black_chair.webp'} className="h-full w-full object-cover" />
+                {product.thumbnail ? (
+                    <img src={`/storage/${product.thumbnail}`} className="h-full w-full object-cover" />
+                ) : (
+                    <div className="h-full w-full">
+                        <AppLogoIcon className="h-full w-full text-neutral-400" />
+                    </div>
+                )}
                 <Button
                     variant="secondary"
                     className="group-hover:bg-primary group-hover:text-secondary absolute top-0 right-0 z-10 size-8 rounded-full bg-none transition-all duration-200"

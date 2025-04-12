@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Categories
-        $categoryNames = ['seating', 'tables', 'cabinet', 'bedrooms', 'art decor'];
+        $categoryNames = ['buffets', 'tables', 'chairs', 'nightstands', 'sofas'];
         $categories = [];
 
         foreach ($categoryNames as $name) {
