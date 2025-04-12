@@ -27,6 +27,28 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+
+            'phone' => [
+                'required',
+                'regex:/^62[0-9]{8,14}$/',
+                'string',
+                'max:20',
+                Rule::unique(User::class)->ignore($this->user()->id),
+            ],
+
+        ];
+    }
+
+    /**
+     * Custom messages for validation errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'phone.regex' => 'Phone number must start with 62 and contain 10 to 15 digits.',
+            'phone.unique' => 'This phone number is already in use.',
         ];
     }
 }

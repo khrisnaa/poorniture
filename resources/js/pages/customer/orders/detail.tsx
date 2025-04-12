@@ -20,8 +20,8 @@ export default function Detail({ order }: PageProps) {
     const { subtotal, tax, total } = calculateTotal(order.items);
 
     const checkout = () => {
-        router.get(
-            route('orders.payment', order.id),
+        router.post(
+            route('orders.checkout'),
             {},
             {
                 preserveScroll: true,

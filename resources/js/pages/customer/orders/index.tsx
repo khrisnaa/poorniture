@@ -30,45 +30,51 @@ export default function Index({ orders }: PageProps) {
             <div className="py-8">
                 <h1 className="text-5xl font-bold">Your Orders</h1>
             </div>
-            <div className="space-y-6">
-                {orders.map((order) => {
-                    const shipping = 1000000;
-                    const { subtotal, tax, total } = calculateTotal(order.items);
-                    return (
-                        <div className="font-inter relative">
-                            <div className="bg-muted space-y-4 rounded-lg p-6">
-                                <div className="flex items-center justify-between">
-                                    <h2 className="text-xl font-bold">Order {order.id}</h2>
-                                    <Badge className="rounded-md px-4 py-2 capitalize">{order.status}</Badge>
-                                </div>
-                                <div className="space-y-2">
-                                    <div className="flex justify-between">
-                                        <span>Subtotal</span>
-                                        <span>{formatPrice(subtotal)}</span>
+            <div className="grid grid-cols-2 gap-4 space-y-6">
+                {orders.length !== 0 ? (
+                    orders.map((order) => {
+                        const shipping = 1000000;
+                        const { subtotal, tax, total } = calculateTotal(order.items);
+                        return (
+                            <div className="font-inter relative col-span-1">
+                                <div className="bg-muted space-y-4 rounded-lg p-6">
+                                    <div className="flex items-center justify-between">
+                                        <h2 className="text-base font-bold">Order {order.id}</h2>
+                                        <Badge className="rounded-md px-4 py-2 capitalize">{order.status}</Badge>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <span>Shipping</span>
-                                        <span>{formatPrice(shipping)}</span>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between">
+                                            <span>Subtotal</span>
+                                            <span>{formatPrice(subtotal)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Shipping</span>
+                                            <span>{formatPrice(shipping)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span>Tax</span>
+                                            <span>{formatPrice(tax)}</span>
+                                        </div>
+                                        <Separator />
+                                        <div className="flex justify-between font-bold">
+                                            <span>Total</span>
+                                            <span>{formatPrice(total)}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <span>Tax</span>
-                                        <span>{formatPrice(tax)}</span>
+                                    <div className="space-y-2">
+                                        <Button onClick={() => detail(order.id)} className="w-full">
+                                            View Detail
+                                        </Button>
                                     </div>
-                                    <Separator />
-                                    <div className="flex justify-between font-bold">
-                                        <span>Total</span>
-                                        <span>{formatPrice(total)}</span>
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Button onClick={() => detail(order.id)} className="w-full">
-                                        View Detail
-                                    </Button>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })
+                ) : (
+                    <p className="px-3 text-center text-gray-600">
+                        Oops! Looks like you don’t have any orders yet. Start shopping and your orders will appear here.
+                    </p>
+                )}
             </div>
         </ClientLayout>
     );

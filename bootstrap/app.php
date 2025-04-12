@@ -21,6 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => HandleIsAdmin::class,
         ]);
 
+        $middleware->validateCsrfTokens([
+            'callback'
+        ]);
+
         $middleware->web(append: [
             HandleAppearance::class,
             HandleInertiaRequests::class,

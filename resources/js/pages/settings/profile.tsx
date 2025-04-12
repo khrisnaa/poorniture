@@ -21,6 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 type ProfileForm = {
     name: string;
     email: string;
+    phone?: string;
 };
 
 export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
@@ -29,6 +30,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<ProfileForm>>({
         name: auth.user.name,
         email: auth.user.email,
+        phone: auth.user.phone,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -49,7 +51,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="name">Namex</Label>
 
                             <Input
                                 id="name"
@@ -62,6 +64,30 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                             />
 
                             <InputError className="mt-2" message={errors.name} />
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="phone">Phone</Label>
+
+                            <div className="mt-1 flex items-center">
+                                <Input
+                                    id="phone"
+                                    className="mt-1 block w-full"
+                                    value={data.phone}
+                                    onChange={(e) => {
+                                        let phoneNumber = e.target.value;
+                                        if (phoneNumber.startsWith('0')) {
+                                            phoneNumber = '62' + phoneNumber.slice(1);
+                                        }
+                                        setData('phone', phoneNumber);
+                                    }}
+                                    required
+                                    autoComplete="phone"
+                                    placeholder="6282312345678"
+                                />
+                            </div>
+
+                            <InputError className="mt-2" message={errors.phone} />
                         </div>
 
                         <div className="grid gap-2">

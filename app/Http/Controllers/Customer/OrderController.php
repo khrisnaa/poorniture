@@ -61,6 +61,8 @@ class OrderController extends Controller
                 'status' => 'pending',
             ]);
 
+            $total = 0;
+
             foreach ($cart->items as $item) {
                 $product = $item->product;
 
@@ -81,7 +83,13 @@ class OrderController extends Controller
                 $total += $subtotal;
             }
 
-            $order->update(['total_price' => $total]);
+            $shipping = 1000000;
+            $tax = 0.10 * ($total + $shipping);
+            $grandTotal = $total + $shipping + $tax;
+
+            $order->update([
+                'total_price' => $grandTotal,
+            ]);
 
             $cart->items()->delete();
             $cart->delete();
@@ -126,6 +134,7 @@ class OrderController extends Controller
 
         try {
             $snapToken = $this->paymentService->generateSnapToken($order);
+            //Update kalau success
             $order->update(['snap_token' => $snapToken]);
         } catch (\Exception $e) {
             return redirect()->route('orders.show', $order->id)
