@@ -3,6 +3,7 @@ import { CartItem, Category, Product } from '@/types/model';
 import { router } from '@inertiajs/react';
 import { Minus, Plus, Trash } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import AppLogoIcon from './app-logo-icon';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from './ui/sheet';
@@ -91,7 +92,13 @@ const CartCard = ({ product, quantity }: CartCardProps) => {
     return (
         <Card className="flex flex-row p-0">
             <div className="size-24 p-2">
-                <img src="/asset/black_chair.webp" className="h-full w-full object-cover" />
+                {product.thumbnail ? (
+                    <img src={`/storage/${product.thumbnail}`} className="h-full w-full object-cover" />
+                ) : (
+                    <div className="h-full w-full">
+                        <AppLogoIcon className="h-full w-full text-neutral-400" />
+                    </div>
+                )}
             </div>
             <div className="flex w-full justify-between">
                 <div className="flex w-full max-w-48 flex-col justify-between p-2">

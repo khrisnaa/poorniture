@@ -1,3 +1,4 @@
+import AppLogoIcon from '@/components/app-logo-icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -147,14 +148,21 @@ function ItemDetail({ item }: ItemDetailProps) {
     return (
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-                <img
-                    src={item.product.thumbnail ?? '/asset/black_chair.webp'}
-                    alt="Product Image"
-                    width={64}
-                    height={64}
-                    className="rounded-md"
-                    style={{ aspectRatio: '64/64', objectFit: 'cover' }}
-                />
+                {item.product.thumbnail ? (
+                    <img
+                        src={`/storage/${item.product.thumbnail}`}
+                        alt="Product Image"
+                        width={64}
+                        height={64}
+                        className="rounded-md"
+                        style={{ aspectRatio: '64/64', objectFit: 'cover' }}
+                    />
+                ) : (
+                    <div className="h-full w-full">
+                        <AppLogoIcon className="h-full w-full text-neutral-400" />
+                    </div>
+                )}
+
                 <div>
                     <p className="font-medium">{item.product.name}</p>
                     <p className="text-muted-foreground text-sm">Quantity: {item.quantity}</p>

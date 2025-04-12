@@ -1,3 +1,4 @@
+import AppLogoIcon from '@/components/app-logo-icon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { cn, formatPrice } from '@/lib/utils';
@@ -63,9 +64,10 @@ export default function ProductsSection() {
                 </div>
                 <div className="w-full max-w-2/3">
                     <div className="flex flex-wrap gap-4">
-                        {/* @ts-ignore */}
-                        {latestProducts && latestProducts[activeCategory] ? (
-                            latestProducts[activeCategory].map((product, index) => <FilteredProduct key={index} product={product} />)
+                        {latestProducts && latestProducts[activeCategory as keyof LatestProducts] ? (
+                            latestProducts[activeCategory as keyof LatestProducts]?.map((product, index) => (
+                                <FilteredProduct key={index} product={product} />
+                            ))
                         ) : (
                             <p>No products found for this category.</p>
                         )}
@@ -107,7 +109,13 @@ const FilteredProduct = ({ product }: FilteredProductProps) => {
     return (
         <Card className="w-[calc(33%-16px)] cursor-pointer justify-between border-none shadow-none">
             <CardContent className="group relative aspect-square">
-                <img alt="Product Image" src="/asset/black_chair.webp" className="h-full w-full object-cover" />
+                {product.thumbnail ? (
+                    <img src={`/storage/${product.thumbnail}`} className="h-full w-full object-cover" />
+                ) : (
+                    <div className="h-full w-full">
+                        <AppLogoIcon className="h-full w-full text-neutral-400" />
+                    </div>
+                )}
                 <div className="absolute top-[4vh] -left-[3dvw] flex translate-y-4 items-center gap-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                     <div className="bg-primary text-secondary p-3">
                         <h3 className="text-sm">Minimalist Comfort</h3>
@@ -120,7 +128,7 @@ const FilteredProduct = ({ product }: FilteredProductProps) => {
                     <p className="text-muted-foreground text-sm">{product.description}</p>
                 </div>
                 <div className="flex w-full items-center justify-between">
-                    <p className="text-2xl font-semibold">{formatPrice(product.price)}</p>
+                    <p className="text-xl font-semibold">{formatPrice(product.price)}</p>
                 </div>
             </CardFooter>
         </Card>
