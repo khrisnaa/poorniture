@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Http\Requests\Customer\UpdateOrderAddressRequest;
 use App\Models\Order;
 use App\Services\PaymentService;
@@ -146,7 +147,7 @@ class OrderController extends Controller
         return Inertia::render('customer/orders/payment', compact('order', 'clientKey'));
     }
 
-    public function updateAddress(Request $request, Order $order)
+    public function updateAddress(UpdateOrderAddressRequest $request, Order $order)
     {
 
 

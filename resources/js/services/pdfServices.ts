@@ -12,7 +12,7 @@ export const downloadOrderPdf = async (orderId: string) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `order-${orderId}.pdf`;
+        a.download = `invoice-${orderId}.pdf`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
