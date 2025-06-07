@@ -1,9 +1,8 @@
 import AppLogoIcon from '@/components/app-logo-icon';
-import { Button } from '@/components/ui/button';
+import { FilterButton, FilterDrawer } from '@/components/filter-drawer';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { cn, formatPrice } from '@/lib/utils';
+import { formatPrice } from '@/lib/utils';
 import { Product } from '@/types/model';
-import { ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 type LatestProducts = {
@@ -47,22 +46,27 @@ export default function ProductsSection() {
     };
 
     return (
-        <div className="min-h-screen space-y-16 py-16">
-            <div className="flex items-end justify-between">
-                <h2 className="max-w-md text-8xl font-bold">Our Products.</h2>
-                <p className="font-inter max-w-64 py-4 text-sm">
+        <div className="min-h-screen space-y-4 py-16 xl:space-y-16">
+            <div className="flex flex-col justify-between xl:flex-row xl:items-end">
+                <h2 className="max-w-md text-6xl font-bold md:text-8xl">Our Products.</h2>
+                <p className="font-inter max-w-64 px-2 py-4 text-sm text-neutral-700 md:px-0">
                     A wide variaty of quality product categories are ready to spoil your eyes, choose and order now!
                 </p>
             </div>
-            <div className="flex">
-                <div className="w-full max-w-1/3">
+            <div className="flex flex-col xl:flex-row">
+                {/* Mobile Filter */}
+                <div className="xl:hidden">
+                    <FilterDrawer categories={categories} onClick={(category) => handleActive(category)} activeCategory={activeCategory} />
+                </div>
+                {/* Desktop Filter */}
+                <div className="hidden w-full max-w-1/3 xl:block">
                     <div className="flex max-w-72 flex-col gap-4 py-8">
                         {categories.map((category, i) => (
                             <FilterButton onClick={() => handleActive(category)} key={i} active={category === activeCategory} text={category} />
                         ))}
                     </div>
                 </div>
-                <div className="w-full max-w-2/3">
+                <div className="w-full xl:max-w-2/3">
                     <div className="flex flex-wrap gap-4">
                         {latestProducts && latestProducts[activeCategory as keyof LatestProducts] ? (
                             latestProducts[activeCategory as keyof LatestProducts]?.map((product, index) => (
@@ -78,28 +82,6 @@ export default function ProductsSection() {
     );
 }
 
-interface FilterButtonProps {
-    active?: boolean;
-    text: string;
-    onClick: () => void;
-}
-
-const FilterButton = ({ active, text, onClick }: FilterButtonProps) => {
-    return (
-        <Button
-            onClick={onClick}
-            variant="outline"
-            className={cn(
-                'group flex justify-between rounded-full !px-6 py-5 font-medium uppercase transition-all duration-200',
-                active && 'bg-primary text-secondary hover:bg-primary/90 hover:text-secondary',
-            )}
-        >
-            <span>{text}</span>
-            <ArrowRight className={cn('-rotate-45 transition-all duration-300 group-hover:rotate-0', active && 'rotate-0')} />
-        </Button>
-    );
-};
-
 interface FilteredProductProps {
     product: Product;
 }
@@ -107,7 +89,7 @@ encodeURI;
 
 const FilteredProduct = ({ product }: FilteredProductProps) => {
     return (
-        <Card className="w-[calc(33%-16px)] cursor-pointer justify-between border-none shadow-none">
+        <Card className="w-[calc(50%-8px)] cursor-pointer justify-between border-none shadow-none md:w-[calc(33.33%-10.66px)]">
             <CardContent className="group relative aspect-square">
                 {product.thumbnail ? (
                     <img src={`/storage/${product.thumbnail}`} className="h-full w-full object-cover" />
@@ -125,10 +107,10 @@ const FilteredProduct = ({ product }: FilteredProductProps) => {
             <CardFooter className="flex flex-col items-start gap-4">
                 <div>
                     <p className="text-3xl font-bold">{product.name}</p>
-                    <p className="text-muted-foreground text-sm">{product.description}</p>
+                    <p className="text-muted-foreground line-clamp-1 text-sm">{product.description}</p>
                 </div>
                 <div className="flex w-full items-center justify-between">
-                    <p className="text-xl font-semibold">{formatPrice(product.price)}</p>
+                    <p className="text-base font-semibold md:text-xl">{formatPrice(product.price)}</p>
                 </div>
             </CardFooter>
         </Card>

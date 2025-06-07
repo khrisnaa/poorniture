@@ -50,7 +50,7 @@ export default function ImageSlider({ images }: ImageSliderProps) {
                         return (
                             <div
                                 key={image.id}
-                                className={`absolute right-0 left-0 mx-auto h-full max-h-[80dvh] w-[60%] transition-all duration-300 ease-in-out ${positionClass}`}
+                                className={`absolute right-8 left-0 mx-auto h-full max-h-[80dvh] w-[60%] transition-all duration-300 ease-in-out md:right-0 ${positionClass}`}
                             >
                                 <img src={`/storage/${image.image_url}`} alt="slider" className="h-full w-full rounded-lg object-cover" />
                             </div>

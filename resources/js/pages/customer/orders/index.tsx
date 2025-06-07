@@ -30,7 +30,7 @@ export default function Index({ orders }: PageProps) {
             <div className="py-8">
                 <h1 className="text-5xl font-bold">Your Orders</h1>
             </div>
-            <div className="grid grid-cols-2 gap-4 space-y-6">
+            <div className="grid grid-cols-1 gap-4 space-y-6 xl:grid-cols-2">
                 {orders.length !== 0 ? (
                     orders.map((order) => {
                         const shipping = 1000000;

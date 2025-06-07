@@ -21,7 +21,9 @@ export default function ImageSection() {
                 <p className="text-secondary -translate-y-2 text-xl font-bold">Collection.</p>
             </div>
             <div className="absolute right-[2dvw] bottom-[10dvh] z-10">
-                <h2 className="text-secondary max-w-xl text-end text-7xl font-bold tracking-normal">Designing Spaces, Defining Comfort.</h2>
+                <h2 className="text-secondary hei max-w-xl text-center text-6xl font-bold tracking-normal md:text-end md:text-7xl">
+                    Designing Spaces, Defining Comfort.
+                </h2>
             </div>
 
             <div className="absolute z-10">

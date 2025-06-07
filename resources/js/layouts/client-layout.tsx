@@ -14,7 +14,7 @@ export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
     <ViewProvider>
         <CartProvider>
             <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
-                <main className="px-3">{children}</main>
+                <main>{children}</main>
                 <Toaster />
             </AppLayoutTemplate>
         </CartProvider>

@@ -116,7 +116,7 @@ const CartCard = ({ product, quantity }: CartCardProps) => {
                         </Button>
                     </div>
                 </div>
-                <div className="flex flex-col justify-start p-2">
+                <div className="flex flex-col justify-center p-2">
                     <Button onClick={() => updateItem('remove')} variant="ghost">
                         <Trash />
                     </Button>

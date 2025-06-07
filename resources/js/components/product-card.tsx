@@ -38,7 +38,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     };
 
     return (
-        <Card className={cn('group w-full border-none shadow-none', activeView === 2 ? 'sm:w-[calc(50%-32px)]' : 'sm:w-[calc(33.33%-32px)]')}>
+        <Card
+            className={cn(
+                'group w-full border-none shadow-none',
+                activeView === 2 ? 'w-[calc(50%-8px)] sm:w-[calc(50%-32px)]' : 'w-[calc(33.33%-10.66px)] sm:w-[calc(33.33%-32px)]',
+            )}
+        >
             <CardContent
                 onClick={() => router.get(route('products.show', product.id))}
                 className={cn('relative aspect-square max-h-64', product.stock != 0 && 'cursor-pointer')}
@@ -58,13 +63,13 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <ArrowRight className="-rotate-45 transition-all duration-300 group-hover:rotate-0" />
                 </Button>
             </CardContent>
-            <CardFooter className="h-full max-h-36 flex-col items-start justify-between gap-6 px-0">
+            <CardFooter className="h-full max-h-36 flex-col items-start justify-between gap-3 px-0 xl:gap-6">
                 <div>
                     <p className="line-clamp-2 text-2xl font-bold">{product.name}</p>
                     <p className="text-muted-foreground text-sm capitalize">{product.category.name}</p>
                 </div>
                 <div className="flex w-full items-center justify-between">
-                    <p className="text-lg font-semibold">
+                    <p className="text-sm font-semibold xl:text-lg">
                         IDR <span>{new Intl.NumberFormat('id-ID').format(product.price)}</span>
                     </p>
                     <Button disabled={product.stock == 0} onClick={handleAddCart} variant="outline" className="z-10 size-8 rounded-full bg-none">

@@ -22,14 +22,14 @@ export default function TopSection() {
                     <Badge variant="outline" className="rounded-full px-4 py-2">
                         {category ? `${formattedCategory} Products` : 'Products'}
                     </Badge>
-                    <h1 className="text-7xl font-bold">{title}</h1>
+                    <h1 className="text-5xl font-bold md:text-7xl">{title}</h1>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 px-2">
                     <span className="text-xs font-medium">View</span>
                     <ViewToggle />
                 </div>
             </div>
-            <p className="font-inter max-w-xs py-4 text-sm">
+            <p className="font-inter hidden max-w-xs py-4 text-sm md:block">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, enim? Lorem ipsum dolor, sit amet consectetur adipisicing elit.
             </p>
         </div>
